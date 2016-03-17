@@ -4,6 +4,11 @@ A component to make all your infinite scrolling woes go away with just 4.15 kB!
 # install
 ```bash
   npm install --save react-infinite-scroll-component
+
+  // in code ES6
+  import InfiniteScroll from 'react-infinite-scroll-component';
+  // or commonjs
+  var InfiniteScroll = require('react-infinite-scroll-component');
 ```
 
 # demos
