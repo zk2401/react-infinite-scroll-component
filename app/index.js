@@ -18,7 +18,7 @@ export default class InfiniteScroll extends Component {
     this.el.addEventListener('scroll', this.debouncedOnScrollListener);
   }
 
-  componentWillUnMount () {
+  componentWillUnmount () {
     this.el.removeEventListener('scroll', this.debouncedOnScrollListener);
   }
 
