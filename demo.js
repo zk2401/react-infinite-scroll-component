@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "c531f066e2b81ba9248b"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "cc96eb60860dfc14b4f3"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -7105,8 +7105,8 @@
 	      this.el.addEventListener('scroll', this.debouncedOnScrollListener);
 	    }
 	  }, {
-	    key: 'componentWillUnMount',
-	    value: function componentWillUnMount() {
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {
 	      this.el.removeEventListener('scroll', this.debouncedOnScrollListener);
 	    }
 	  }, {
@@ -7123,9 +7123,9 @@
 	    value: function isElementAtBottom(target) {
 	      var scrollThreshold = arguments.length <= 1 || arguments[1] === undefined ? 0.8 : arguments[1];
 	
-	      var scrolled = scrollThreshold * (target.scrollHeight - target.scrollTop);
-	      var clientHeight = target.clientHeight;
+	      var clientHeight = target === document.body || target === document.documentElement ? window.screen.availHeight : target.clientHeight;
 	
+	      var scrolled = scrollThreshold * (target.scrollHeight - target.scrollTop);
 	      return scrolled < clientHeight;
 	    }
 	  }, {
