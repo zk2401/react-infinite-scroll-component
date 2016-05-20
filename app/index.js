@@ -69,7 +69,8 @@ export default class InfiniteScroll extends Component {
   render () {
     const style = {
       height: this.props.height || 'auto',
-      overflow: 'auto'
+      overflow: 'auto',
+      WebkitOverflowScrolling: 'touch'
     };
     const hasChildren = this.props.hasChildren || !!(this.props.children && this.props.children.length);
     return (
