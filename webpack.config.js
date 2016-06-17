@@ -45,7 +45,6 @@ if (isDevelopment) {
     library: 'InfiniteScroll',
     libraryTarget: 'umd'
   };
-  finalConf.devtool = false;
   finalConf.externals = {
     'react': {
       root: 'React',
@@ -57,11 +56,6 @@ if (isDevelopment) {
   finalConf.plugins = [...finalConf.plugins,
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      }
-    }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': '"production"'
     })
