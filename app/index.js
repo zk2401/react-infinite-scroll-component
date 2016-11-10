@@ -14,7 +14,7 @@ export default class InfiniteScroll extends Component {
   }
 
   componentDidMount () {
-    this.el = this.props.height ? this.refs.infScroll : window;
+    this.el = this.props.height ? this._infScroll : window;
     this.el.addEventListener('scroll', this.debouncedOnScrollListener);
   }
 
@@ -75,7 +75,7 @@ export default class InfiniteScroll extends Component {
     };
     const hasChildren = this.props.hasChildren || !!(this.props.children && this.props.children.length);
     return (
-      <div className='infinite-scroll-component' ref='infScroll'
+      <div className='infinite-scroll-component' ref={infScroll => this._infScroll = infScroll}
         style={style}>
         {this.props.children}
         {!this.state.showLoader && !hasChildren && this.props.hasMore &&
