@@ -1,6 +1,6 @@
 {
   "name": "react-infinite-scroll-component",
-  "version": "1.4.0",
+  "version": "2.0.0",
   "description": "An Infinite Scroll component in react.",
   "main": "lib/index.js",
   "scripts": {
