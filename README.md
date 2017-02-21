@@ -60,7 +60,7 @@ name | type | description
 **height** | number | optional, give only if you want to have a fixed height scrolling content
 **hasChildren** | bool | `children` is by default assumed to be of type array and it's length is used to determine if loader needs to be shown or not, if your `children` is not an array, specify this prop to tell if your items are 0 or more.
 **pullDownToRefresh** | bool | to enable **Pull Down to Refresh** feature
-**pullDownToRefreshContent** | node | any JSX that you want to show the user, __default={<h3>Pull down to refresh</h3>}__
-**releaseToRefreshContent** | node | any JSX that you want to show the user, __default={<h3>Release to refresh</h3>}__
-**pullDownToRefreshThreshold** | number | minimum distance the user needs to pull down to trigger the refresh, __default=100px__
+**pullDownToRefreshContent** | node | any JSX that you want to show the user, `default={<h3>Pull down to refresh</h3>}`
+**releaseToRefreshContent** | node | any JSX that you want to show the user, `default={<h3>Release to refresh</h3>}`
+**pullDownToRefreshThreshold** | number | minimum distance the user needs to pull down to trigger the refresh, `default=100px`
 **refreshFunction** | function | this function will be called, it should return the fresh data that you want to show the user
