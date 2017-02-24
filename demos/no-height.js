@@ -11,7 +11,7 @@ const divs = [
   <div key={5} style={{height: 200, background: 'cornsilk'}}>Big div no 5</div>
 ];
 
-const noHeightMessage = 'No height given to InfiniteScroll, free scroll like Facebook';
+const noHeightMessage = 'No height given to InfiniteScroll, free scroll like Facebook. Also try Pull Down to refresh! :P';
 
 export default class NoHeight extends React.Component {
   constructor () {
