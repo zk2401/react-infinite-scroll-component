@@ -14,8 +14,8 @@ added. An infinite-scroll that actually works and super-simple to integrate!
 ```
 
 # demos
-See the demo in action at [http://ankeetmaini.github.io/react-infinite-scroll-component/](http://ankeetmaini.github.io/react-infinite-scroll-component/)
-The code for demos is in the `demos/` directory. You can also clone and open `lib/index.html` in your browser to see the demos in action. Thanks [@kdenz](https://github.com/kdenz)!
+- [See the demo in action at http://ankeetmaini.github.io/react-infinite-scroll-component/](http://ankeetmaini.github.io/react-infinite-scroll-component/). Thanks [@kdenz](https://github.com/kdenz)!
+- The code for demos is in the `demos/` directory. You can also clone and open `lib/index.html` in your browser to see the demos in action.
 
 # using
 The `InfiniteScroll` component can be used in two ways.
