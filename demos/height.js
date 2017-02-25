@@ -32,7 +32,7 @@ export default class Height extends React.Component {
     let count = this.state.divs.length;
     for (let i = 0; i < 10; i++) {
       moreDivs.push(
-        <div key={'div' + count++} style={{background: 'cornsilk'}}>
+        <div key={'div' + count++} style={{background: 'cornsilk', height: 100}}>
           Div no {count}
         </div>
       );

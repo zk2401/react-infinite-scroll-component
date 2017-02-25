@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import debounce from './utils/debounce';
+import throttle from './utils/throttle';
 
 export default class InfiniteScroll extends Component {
   constructor (props) {
@@ -19,7 +19,7 @@ export default class InfiniteScroll extends Component {
     this.maxPullDownDistance = 0;
 
     this.onScrollListener = this.onScrollListener.bind(this);
-    this.debouncedOnScrollListener = debounce(this.onScrollListener, 150).bind(this);
+    this.throttledOnScrollListener = throttle(this.onScrollListener, 150).bind(this);
     this.onStart = this.onStart.bind(this);
     this.onMove = this.onMove.bind(this);
     this.onEnd = this.onEnd.bind(this);
@@ -27,7 +27,7 @@ export default class InfiniteScroll extends Component {
 
   componentDidMount () {
     this.el = this.props.height ? this._infScroll : window;
-    this.el.addEventListener('scroll', this.debouncedOnScrollListener);
+    this.el.addEventListener('scroll', this.throttledOnScrollListener);
 
     if (this.props.pullDownToRefresh) {
       document.addEventListener('touchstart', this.onStart);
@@ -53,7 +53,7 @@ export default class InfiniteScroll extends Component {
   }
 
   componentWillUnmount () {
-    this.el.removeEventListener('scroll', this.debouncedOnScrollListener);
+    this.el.removeEventListener('scroll', this.throttledOnScrollListener);
 
     if (this.props.pullDownToRefresh) {
       document.removeEventListener('touchstart', this.onStart);
