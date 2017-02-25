@@ -76,9 +76,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _utilsDebounce = __webpack_require__(1);
+	var _utilsThrottle = __webpack_require__(1);
 
-	var _utilsDebounce2 = _interopRequireDefault(_utilsDebounce);
+	var _utilsThrottle2 = _interopRequireDefault(_utilsThrottle);
 
 	var InfiniteScroll = (function (_Component) {
 	  _inherits(InfiniteScroll, _Component);
@@ -102,7 +102,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this.maxPullDownDistance = 0;
 
 	    this.onScrollListener = this.onScrollListener.bind(this);
-	    this.debouncedOnScrollListener = (0, _utilsDebounce2['default'])(this.onScrollListener, 150).bind(this);
+	    this.throttledOnScrollListener = (0, _utilsThrottle2['default'])(this.onScrollListener, 150).bind(this);
 	    this.onStart = this.onStart.bind(this);
 	    this.onMove = this.onMove.bind(this);
 	    this.onEnd = this.onEnd.bind(this);
@@ -112,7 +112,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      this.el = this.props.height ? this._infScroll : window;
-	      this.el.addEventListener('scroll', this.debouncedOnScrollListener);
+	      this.el.addEventListener('scroll', this.throttledOnScrollListener);
 
 	      if (this.props.pullDownToRefresh) {
 	        document.addEventListener('touchstart', this.onStart);
@@ -135,7 +135,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'componentWillUnmount',
 	    value: function componentWillUnmount() {
-	      this.el.removeEventListener('scroll', this.debouncedOnScrollListener);
+	      this.el.removeEventListener('scroll', this.throttledOnScrollListener);
 
 	      if (this.props.pullDownToRefresh) {
 	        document.removeEventListener('touchstart', this.onStart);
@@ -357,25 +357,33 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 1 */
 /***/ function(module, exports) {
 
+	// https://remysharp.com/2010/07/21/throttling-function-calls
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports["default"] = debounce;
+	exports["default"] = throttle;
 
-	function debounce(func, wait) {
-	  var timeout = undefined;
+	function throttle(fn, threshhold, scope) {
+	  threshhold || (threshhold = 250);
+	  var last, deferTimer;
 	  return function () {
-	    var _this = this;
-	    var args = arguments;
+	    var context = scope || this;
 
-	    var later = function later() {
-	      timeout = null;
-	      func.apply(_this, args);
-	    };
-	    clearTimeout(timeout);
-	    timeout = setTimeout(later, wait);
+	    var now = +new Date(),
+	        args = arguments;
+	    if (last && now < last + threshhold) {
+	      // hold on to it
+	      clearTimeout(deferTimer);
+	      deferTimer = setTimeout(function () {
+	        last = now;
+	        fn.apply(context, args);
+	      }, threshhold);
+	    } else {
+	      last = now;
+	      fn.apply(context, args);
+	    }
 	  };
 	}
 
