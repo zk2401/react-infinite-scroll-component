@@ -63,7 +63,7 @@
 /******/ 	}
 /******/
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "50ca59de8546d5d4290e"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "588f0b04234851b65401"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/
@@ -7546,9 +7546,9 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _utilsDebounce = __webpack_require__(93);
+	var _utilsThrottle = __webpack_require__(93);
 	
-	var _utilsDebounce2 = _interopRequireDefault(_utilsDebounce);
+	var _utilsThrottle2 = _interopRequireDefault(_utilsThrottle);
 	
 	var InfiniteScroll = (function (_Component) {
 	  _inherits(InfiniteScroll, _Component);
@@ -7572,7 +7572,7 @@
 	    this.maxPullDownDistance = 0;
 	
 	    this.onScrollListener = this.onScrollListener.bind(this);
-	    this.debouncedOnScrollListener = (0, _utilsDebounce2['default'])(this.onScrollListener, 150).bind(this);
+	    this.throttledOnScrollListener = (0, _utilsThrottle2['default'])(this.onScrollListener, 150).bind(this);
 	    this.onStart = this.onStart.bind(this);
 	    this.onMove = this.onMove.bind(this);
 	    this.onEnd = this.onEnd.bind(this);
@@ -7582,7 +7582,7 @@
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      this.el = this.props.height ? this._infScroll : window;
-	      this.el.addEventListener('scroll', this.debouncedOnScrollListener);
+	      this.el.addEventListener('scroll', this.throttledOnScrollListener);
 	
 	      if (this.props.pullDownToRefresh) {
 	        document.addEventListener('touchstart', this.onStart);
@@ -7605,7 +7605,7 @@
 	  }, {
 	    key: 'componentWillUnmount',
 	    value: function componentWillUnmount() {
-	      this.el.removeEventListener('scroll', this.debouncedOnScrollListener);
+	      this.el.removeEventListener('scroll', this.throttledOnScrollListener);
 	
 	      if (this.props.pullDownToRefresh) {
 	        document.removeEventListener('touchstart', this.onStart);
@@ -12148,25 +12148,33 @@
 /* 93 */
 /***/ function(module, exports) {
 
+	// https://remysharp.com/2010/07/21/throttling-function-calls
 	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports["default"] = debounce;
+	exports["default"] = throttle;
 	
-	function debounce(func, wait) {
-	  var timeout = undefined;
+	function throttle(fn, threshhold, scope) {
+	  threshhold || (threshhold = 250);
+	  var last, deferTimer;
 	  return function () {
-	    var _this = this;
-	    var args = arguments;
+	    var context = scope || this;
 	
-	    var later = function later() {
-	      timeout = null;
-	      func.apply(_this, args);
-	    };
-	    clearTimeout(timeout);
-	    timeout = setTimeout(later, wait);
+	    var now = +new Date(),
+	        args = arguments;
+	    if (last && now < last + threshhold) {
+	      // hold on to it
+	      clearTimeout(deferTimer);
+	      deferTimer = setTimeout(function () {
+	        last = now;
+	        fn.apply(context, args);
+	      }, threshhold);
+	    } else {
+	      last = now;
+	      fn.apply(context, args);
+	    }
 	  };
 	}
 	
@@ -12277,7 +12285,7 @@
 	      for (var i = 0; i < 10; i++) {
 	        moreDivs.push(_react2['default'].createElement(
 	          'div',
-	          { key: 'div' + count++, style: { background: 'cornsilk' } },
+	          { key: 'div' + count++, style: { background: 'cornsilk', height: 100 } },
 	          'Div no ',
 	          count
 	        ));
@@ -12402,24 +12410,40 @@
 	
 	var divs = [_react2['default'].createElement(
 	  'div',
-	  { key: 1, style: { height: 200, background: 'cornsilk' } },
+	  { key: 1, style: { height: 250, background: 'cornsilk' } },
 	  'Big div no 1'
 	), _react2['default'].createElement(
 	  'div',
-	  { key: 2, style: { height: 200, background: 'cornsilk' } },
+	  { key: 2, style: { height: 250, background: 'cornsilk' } },
 	  'Big div no 2'
 	), _react2['default'].createElement(
 	  'div',
-	  { key: 3, style: { height: 200, background: 'cornsilk' } },
+	  { key: 3, style: { height: 250, background: 'cornsilk' } },
 	  'Big div no 3'
 	), _react2['default'].createElement(
 	  'div',
-	  { key: 4, style: { height: 200, background: 'cornsilk' } },
+	  { key: 4, style: { height: 250, background: 'cornsilk' } },
 	  'Big div no 4'
 	), _react2['default'].createElement(
 	  'div',
-	  { key: 5, style: { height: 200, background: 'cornsilk' } },
+	  { key: 5, style: { height: 250, background: 'cornsilk' } },
 	  'Big div no 5'
+	), _react2['default'].createElement(
+	  'div',
+	  { key: 6, style: { height: 250, background: 'cornsilk' } },
+	  'Big div no 6'
+	), _react2['default'].createElement(
+	  'div',
+	  { key: 7, style: { height: 250, background: 'cornsilk' } },
+	  'Big div no 7'
+	), _react2['default'].createElement(
+	  'div',
+	  { key: 8, style: { height: 250, background: 'cornsilk' } },
+	  'Big div no 8'
+	), _react2['default'].createElement(
+	  'div',
+	  { key: 9, style: { height: 250, background: 'cornsilk' } },
+	  'Big div no 9'
 	)];
 	
 	var noHeightMessage = 'No height given to InfiniteScroll, free scroll like Facebook. Also try Pull Down to refresh! :P';
@@ -12445,10 +12469,10 @@
 	
 	      var moreDivs = [];
 	      var count = this.state.divs.length;
-	      for (var i = 0; i < 10; i++) {
+	      for (var i = 0; i < 30; i++) {
 	        moreDivs.push(_react2['default'].createElement(
 	          'div',
-	          { key: 'div' + count++, style: { background: 'cornsilk' } },
+	          { key: 'div' + count++, style: { background: 'cornsilk', height: 100 } },
 	          'Div no ',
 	          count
 	        ));
@@ -12496,7 +12520,7 @@
 	            next: this.generateDivs,
 	            hasMore: true,
 	            loader: _react2['default'].createElement(
-	              'h4',
+	              'h1',
 	              null,
 	              'Loading...'
 	            ) },
