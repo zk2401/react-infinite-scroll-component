@@ -63,7 +63,7 @@
 /******/ 	}
 /******/
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "8bb3409bf2650cb0f170"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "bfea262320d4b5224631"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/
@@ -12196,6 +12196,8 @@
 	
 	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
@@ -12214,57 +12216,48 @@
 	
 	var _app2 = _interopRequireDefault(_app);
 	
+	var style = {
+	  display: 'flex',
+	  alignItems: 'center',
+	  fontSize: 40
+	};
+	
 	var divs = [_react2['default'].createElement(
 	  'div',
-	  { key: 1, style: { height: 200, background: 'cornsilk' } },
-	  'Big div no 1'
+	  { key: 1, style: _extends({ height: 200, background: '#9bc95b' }, style) },
+	  'Div no 1'
 	), _react2['default'].createElement(
 	  'div',
-	  { key: 2, style: { height: 200, background: 'cornsilk' } },
-	  'Big div no 2'
+	  { key: 2, style: _extends({ height: 200, background: '#ffd47b' }, style) },
+	  'Div no 2'
 	), _react2['default'].createElement(
 	  'div',
-	  { key: 3, style: { height: 200, background: 'cornsilk' } },
-	  'Big div no 3'
+	  { key: 3, style: _extends({ height: 200, background: '#95a9d6' }, style) },
+	  'Div no 3'
 	), _react2['default'].createElement(
 	  'div',
-	  { key: 4, style: { height: 200, background: 'cornsilk' } },
-	  'Big div no 4'
+	  { key: 4, style: _extends({ height: 200, background: '#ffa8e1' }, style) },
+	  'Div no 4'
 	), _react2['default'].createElement(
 	  'div',
-	  { key: 5, style: { height: 200, background: 'cornsilk' } },
-	  'Big div no 5'
+	  { key: 5, style: _extends({ height: 200, background: '#9bc95b' }, style) },
+	  'Div no 5'
 	), _react2['default'].createElement(
 	  'div',
-	  { key: 6, style: { height: 200, background: 'cornsilk' } },
-	  'Big div no 6'
+	  { key: 6, style: _extends({ height: 200, background: '#ffd47b' }, style) },
+	  'Div no 6'
 	), _react2['default'].createElement(
 	  'div',
-	  { key: 7, style: { height: 200, background: 'cornsilk' } },
-	  'Big div no 7'
+	  { key: 7, style: _extends({ height: 200, background: '#95a9d6' }, style) },
+	  'Div no 7'
 	), _react2['default'].createElement(
 	  'div',
-	  { key: 8, style: { height: 200, background: 'cornsilk' } },
-	  'Big div no 8'
-	), _react2['default'].createElement(
-	  'div',
-	  { key: 9, style: { height: 200, background: 'cornsilk' } },
-	  'Big div no 9'
-	), _react2['default'].createElement(
-	  'div',
-	  { key: 10, style: { height: 200, background: 'cornsilk' } },
-	  'Big div no 10'
-	), _react2['default'].createElement(
-	  'div',
-	  { key: 11, style: { height: 200, background: 'cornsilk' } },
-	  'Big div no 11'
-	), _react2['default'].createElement(
-	  'div',
-	  { key: 12, style: { height: 200, background: 'cornsilk' } },
-	  'Big div no 12'
+	  { key: 8, style: _extends({ height: 200, background: '#ffa8e1' }, style) },
+	  'Div no 8'
 	)];
 	
 	var heightMessage = 'Infinite Scroll given fixed height of 300px in props';
+	var colors = ['#9bc95b', '#ffd47b', '#95a9d6', '#ffa8e1'];
 	
 	var Height = (function (_React$Component) {
 	  _inherits(Height, _React$Component);
@@ -12287,7 +12280,7 @@
 	      for (var i = 0; i < 30; i++) {
 	        moreDivs.push(_react2['default'].createElement(
 	          'div',
-	          { key: 'div' + count++, style: { background: 'cornsilk', height: 100 } },
+	          { key: 'div' + count++, style: _extends({ height: 200, background: colors[i % 4] }, style) },
 	          'Div no ',
 	          count
 	        ));
@@ -12402,6 +12395,8 @@
 	
 	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
@@ -12420,45 +12415,48 @@
 	
 	var _app2 = _interopRequireDefault(_app);
 	
+	var style = {
+	  display: 'flex',
+	  alignItems: 'center',
+	  fontSize: 40
+	};
+	
 	var divs = [_react2['default'].createElement(
 	  'div',
-	  { key: 1, style: { height: 250, background: 'cornsilk' } },
-	  'Big div no 1'
+	  { key: 1, style: _extends({ height: 200, background: '#9bc95b' }, style) },
+	  'Div no 1'
 	), _react2['default'].createElement(
 	  'div',
-	  { key: 2, style: { height: 250, background: 'cornsilk' } },
-	  'Big div no 2'
+	  { key: 2, style: _extends({ height: 200, background: '#ffd47b' }, style) },
+	  'Div no 2'
 	), _react2['default'].createElement(
 	  'div',
-	  { key: 3, style: { height: 250, background: 'cornsilk' } },
-	  'Big div no 3'
+	  { key: 3, style: _extends({ height: 200, background: '#95a9d6' }, style) },
+	  'Div no 3'
 	), _react2['default'].createElement(
 	  'div',
-	  { key: 4, style: { height: 250, background: 'cornsilk' } },
-	  'Big div no 4'
+	  { key: 4, style: _extends({ height: 200, background: '#ffa8e1' }, style) },
+	  'Div no 4'
 	), _react2['default'].createElement(
 	  'div',
-	  { key: 5, style: { height: 250, background: 'cornsilk' } },
-	  'Big div no 5'
+	  { key: 5, style: _extends({ height: 200, background: '#9bc95b' }, style) },
+	  'Div no 5'
 	), _react2['default'].createElement(
 	  'div',
-	  { key: 6, style: { height: 250, background: 'cornsilk' } },
-	  'Big div no 6'
+	  { key: 6, style: _extends({ height: 200, background: '#ffd47b' }, style) },
+	  'Div no 6'
 	), _react2['default'].createElement(
 	  'div',
-	  { key: 7, style: { height: 250, background: 'cornsilk' } },
-	  'Big div no 7'
+	  { key: 7, style: _extends({ height: 200, background: '#95a9d6' }, style) },
+	  'Div no 7'
 	), _react2['default'].createElement(
 	  'div',
-	  { key: 8, style: { height: 250, background: 'cornsilk' } },
-	  'Big div no 8'
-	), _react2['default'].createElement(
-	  'div',
-	  { key: 9, style: { height: 250, background: 'cornsilk' } },
-	  'Big div no 9'
+	  { key: 8, style: _extends({ height: 200, background: '#ffa8e1' }, style) },
+	  'Div no 8'
 	)];
 	
 	var noHeightMessage = 'No height given to InfiniteScroll, free scroll like Facebook. Also try Pull Down to refresh! :P';
+	var colors = ['#9bc95b', '#ffd47b', '#95a9d6', '#ffa8e1'];
 	
 	var NoHeight = (function (_React$Component) {
 	  _inherits(NoHeight, _React$Component);
@@ -12484,7 +12482,7 @@
 	      for (var i = 0; i < 30; i++) {
 	        moreDivs.push(_react2['default'].createElement(
 	          'div',
-	          { key: 'div' + count++, style: { background: 'cornsilk', height: 100 } },
+	          { key: 'div' + count++, style: _extends({ height: 200, background: colors[i % 4] }, style) },
 	          'Div no ',
 	          count
 	        ));
