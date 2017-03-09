@@ -23,7 +23,7 @@ const renderHeight = () => {
 
 ReactDOM.render(
   <div>
-    <button onClick={renderNoHeight} onTouchStart={renderNoHeight} style={buttonStyle}>Body scroll, no height, like Facebook timeline</button>
+    <button onClick={renderNoHeight} onTouchStart={renderNoHeight} style={buttonStyle}>Body scroll, no height, like Facebook timeline!</button>
     <button onClick={renderHeight} onTouchStart={renderHeight} style={buttonStyle}>Fixed container height</button>
   </div>,
   document.getElementById('button')
