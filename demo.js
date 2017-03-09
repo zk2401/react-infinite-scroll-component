@@ -63,7 +63,7 @@
 /******/ 	}
 /******/
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "bfea262320d4b5224631"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "7c24eb88a7c1750d357a"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/
@@ -7630,8 +7630,6 @@
 	  }, {
 	    key: 'onStart',
 	    value: function onStart(evt) {
-	      evt.preventDefault();
-	
 	      if (this.state.lastScrollTop) return;
 	
 	      this.dragging = true;
@@ -7661,8 +7659,6 @@
 	
 	      this._infScroll.style.overflow = 'visible';
 	      this._infScroll.style.transform = 'translate3d(0px, ' + (this.currentY - this.startY) + 'px, 0px)';
-	
-	      evt.preventDefault();
 	    }
 	  }, {
 	    key: 'onEnd',
@@ -7683,8 +7679,6 @@
 	        _this._infScroll.style.transform = 'none';
 	        _this._infScroll.style.willChange = 'none';
 	      });
-	
-	      evt.preventDefault();
 	    }
 	  }, {
 	    key: 'isElementAtBottom',
