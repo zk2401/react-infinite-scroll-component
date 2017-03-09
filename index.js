@@ -160,8 +160,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'onStart',
 	    value: function onStart(evt) {
-	      evt.preventDefault();
-
 	      if (this.state.lastScrollTop) return;
 
 	      this.dragging = true;
@@ -191,8 +189,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      this._infScroll.style.overflow = 'visible';
 	      this._infScroll.style.transform = 'translate3d(0px, ' + (this.currentY - this.startY) + 'px, 0px)';
-
-	      evt.preventDefault();
 	    }
 	  }, {
 	    key: 'onEnd',
@@ -213,8 +209,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        _this._infScroll.style.transform = 'none';
 	        _this._infScroll.style.willChange = 'none';
 	      });
-
-	      evt.preventDefault();
 	    }
 	  }, {
 	    key: 'isElementAtBottom',
