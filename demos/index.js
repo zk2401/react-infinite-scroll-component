@@ -11,13 +11,15 @@ const buttonStyle = {
 };
 
 const renderNoHeight = () => {
-  document.getElementById('app').innerHTML = '';
-  ReactDOM.render(<NoHeight/>, document.getElementById('app'));
+  const appEl = document.getElementById('app');
+  appEl.innerHTML = '';
+  appEl.style.height = '';ReactDOM.render(<NoHeight/>, document.getElementById('app'));
 }
 
 const renderHeight = () => {
-  document.getElementById('app').innerHTML = '';
-  ReactDOM.render(<Height/>, document.getElementById('app'));
+  const appEl = document.getElementById('app');
+  appEl.innerHTML = '';
+  appEl.style.height = '';ReactDOM.render(<Height/>, document.getElementById('app'));
 };
 
 
