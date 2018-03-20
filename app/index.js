@@ -75,7 +75,11 @@ export default class InfiniteScroll extends Component {
   }
 
   componentWillReceiveProps (props) {
-    // new data was sent in
+
+    // do nothing when dataLength is unchanged
+    if (this.props.dataLength === props.dataLength) return;
+
+    // update state when new data was sent in
     this.setState({
       showLoader: false,
       actionTriggered: false,
@@ -150,15 +154,6 @@ export default class InfiniteScroll extends Component {
       ? event.target
       : (document.documentElement.scrollTop ? document.documentElement : document.body);
 
-    // if user scrolls up, remove action trigger lock
-    if (target.scrollTop < this.state.lastScrollTop) {
-      this.setState({
-        actionTriggered: false,
-        lastScrollTop: target.scrollTop
-      });
-      return; // user's going up, we don't care
-    }
-
     // return immediately if the action has already been triggered,
     // prevents multiple triggers.
     if (this.state.actionTriggered) return;
@@ -214,7 +209,7 @@ export default class InfiniteScroll extends Component {
           {this.props.children}
           {!this.state.showLoader && !hasChildren && this.props.hasMore &&
             this.props.loader}
-          {this.state.showLoader && this.props.loader}
+          {this.state.showLoader && this.props.hasMore && this.props.loader}
           {!this.props.hasMore && this.props.endMessage}
         </div>
       </div>
@@ -246,4 +241,5 @@ InfiniteScroll.propTypes = {
   pullDownToRefreshThreshold: PropTypes.number,
   refreshFunction: PropTypes.func,
   onScroll: PropTypes.func,
+  dataLength: PropTypes.number.isRequired,
 };
