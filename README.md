@@ -13,23 +13,11 @@ added. An infinite-scroll that actually works and super-simple to integrate!
   var InfiniteScroll = require('react-infinite-scroll-component');
 ```
 
-# demos
-- [See the demo in action at http://ankeetmaini.github.io/react-infinite-scroll-component/](http://ankeetmaini.github.io/react-infinite-scroll-component/). Thanks [@kdenz](https://github.com/kdenz)!
-- The code for demos is in the `demos/` directory. You can also clone and open `lib/index.html` in your browser to see the demos in action.
-
 # using
 
 ```jsx
 <InfiniteScroll
-  pullDownToRefresh
   dataLength={items.length} //This is important field to render the next data
-  pullDownToRefreshContent={
-    <h3 style={{textAlign: 'center'}}>&#8595; Pull down to refresh</h3>
-  }
-  releaseToRefreshContent={
-    <h3 style={{textAlign: 'center'}}>&#8593; Release to refresh</h3>
-  }
-  refreshFunction={this.refresh}
   next={fetchData}
   hasMore={true}
   loader={<h4>Loading...</h4>}
@@ -37,6 +25,15 @@ added. An infinite-scroll that actually works and super-simple to integrate!
     <p style={{textAlign: 'center'}}>
       <b>Yay! You have seen it all</b>
     </p>
+  }
+  // below props only if you need pull down functionality
+  refreshFunction={this.refresh}
+  pullDownToRefresh
+  pullDownToRefreshContent={
+    <h3 style={{textAlign: 'center'}}>&#8595; Pull down to refresh</h3>
+  }
+  releaseToRefreshContent={
+    <h3 style={{textAlign: 'center'}}>&#8593; Release to refresh</h3>
   }>
   {items}
 </InfiniteScroll>
@@ -52,6 +49,14 @@ The `InfiniteScroll` component can be used in three ways.
 # docs version wise
 [3.0.2](docs/README-3.0.2.md)
 
+# live examples
+
+- infinite scroll (never ending) example using react (body/window scroll)
+  - [![Edit yk7637p62z](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/yk7637p62z)
+- infinte scroll till 500 elements (body/window scroll)
+  - [![Edit 439v8rmqm0](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/439v8rmqm0)
+- infinite scroll in an element (div of height 400px)
+  - [![Edit w3w89k7x8](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/w3w89k7x8)
 
 # props
 name | type | description
