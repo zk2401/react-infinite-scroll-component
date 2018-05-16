@@ -57,6 +57,8 @@ The `InfiniteScroll` component can be used in three ways.
   - [![Edit 439v8rmqm0](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/439v8rmqm0)
 - infinite scroll in an element (div of height 400px)
   - [![Edit w3w89k7x8](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/w3w89k7x8)
+- infinite scroll with `scrollableTarget` (a parent element which is scrollable)
+  - [![Edit r7rp40n0zm](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/r7rp40n0zm)
 
 # props
 name | type | description
