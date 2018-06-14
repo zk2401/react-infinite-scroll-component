@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import throttle from './utils/throttle';
+import throttle from "./utils/throttle";
+import { ThresholdUnits, parseThreshold } from "./utils/threshold";
 
 export default class InfiniteScroll extends Component {
   constructor(props) {
@@ -161,8 +162,16 @@ export default class InfiniteScroll extends Component {
         ? window.screen.availHeight
         : target.clientHeight;
 
+    const threshold = parseThreshold(scrollThreshold);
+
+    if (threshold.unit === ThresholdUnits.Pixel) {
+      return (
+        target.scrollTop + clientHeight >= target.scrollHeight - threshold.value
+      );
+    }
+
     return (
-      target.scrollTop + clientHeight >= scrollThreshold * target.scrollHeight
+      target.scrollTop + clientHeight >= threshold.value / 100 * target.scrollHeight
     );
   }
 
@@ -263,7 +272,7 @@ InfiniteScroll.propTypes = {
   hasMore: PropTypes.bool,
   children: PropTypes.node,
   loader: PropTypes.node.isRequired,
-  scrollThreshold: PropTypes.number,
+  scrollThreshold: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   endMessage: PropTypes.node,
   style: PropTypes.object,
   height: PropTypes.number,
