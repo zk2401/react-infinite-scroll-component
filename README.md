@@ -68,7 +68,7 @@ name | type | description
 **children** | node (list) | the data items which you need to scroll.
 **dataLength** | number | set the length of the data.This will unlock the subsequent calls to next.
 **loader** | node | you can send a loader component to show while the component waits for the next load of data. e.g. `<h3>Loading...</h3>` or any fancy loader element
-**scrollThreshold** | number | a threshold value after that the `InfiniteScroll` will call `next`. By default it's `0.8`. It means the `next` will be called when the user comes below 80% of the total height.
+**scrollThreshold** | number &#124; string | A threshold value defining when `InfiniteScroll` will call `next`. Default value is `0.8`. It means the `next` will be called when user comes below 80% of the total height. If you pass threshold in pixels (`scrollThreshold="200px"`), `next` will be called once you scroll at least (100% - scrollThreshold) pixels down.  
 **onScroll** | function | a function that will listen to the scroll event on the scrolling container. Note that the scroll event is throttled, so you may not receive as many events as you would expect. 
 **endMessage** | node |  this message is shown to the user when he has seen all the records which means he's at the bottom and `hasMore` is `false`
 **style** | object | any style which you want to override
