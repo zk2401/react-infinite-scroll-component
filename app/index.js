@@ -223,7 +223,7 @@ export default class InfiniteScroll extends Component {
     return (
       <div style={outerDivStyle}>
         <div
-          className="infinite-scroll-component"
+          className={`infinite-scroll-component ${this.props.className || ''}`}
           ref={infScroll => (this._infScroll = infScroll)}
           style={style}
         >
