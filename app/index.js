@@ -82,8 +82,8 @@ export default class InfiniteScroll extends Component {
   }
 
   componentWillReceiveProps(props) {
-    // do nothing when dataLength is unchanged
-    if (this.props.dataLength === props.dataLength) return;
+    // do nothing when dataLength and key are unchanged
+    if (this.props.key === props.key && this.props.dataLength === props.dataLength) return;
 
     // update state when new data was sent in
     this.setState({
@@ -284,5 +284,6 @@ InfiniteScroll.propTypes = {
   pullDownToRefreshThreshold: PropTypes.number,
   refreshFunction: PropTypes.func,
   onScroll: PropTypes.func,
-  dataLength: PropTypes.number.isRequired
+  dataLength: PropTypes.number.isRequired,
+  key: PropTypes.string
 };
