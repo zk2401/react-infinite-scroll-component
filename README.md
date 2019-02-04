@@ -81,3 +81,4 @@ name | type | description
 **pullDownToRefreshThreshold** | number | minimum distance the user needs to pull down to trigger the refresh, `default=100px`
 **refreshFunction** | function | this function will be called, it should return the fresh data that you want to show the user
 **initialScrollY** | number | set a scroll y position for the component to render with.
+**key** | string | the key for the current data set being shown, used when the same component can show different data sets at different times, `default=undefined`
