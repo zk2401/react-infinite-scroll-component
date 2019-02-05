@@ -71,6 +71,7 @@ name | type | description
 **scrollThreshold** | number &#124; string | A threshold value defining when `InfiniteScroll` will call `next`. Default value is `0.8`. It means the `next` will be called when user comes below 80% of the total height. If you pass threshold in pixels (`scrollThreshold="200px"`), `next` will be called once you scroll at least (100% - scrollThreshold) pixels down.  
 **onScroll** | function | a function that will listen to the scroll event on the scrolling container. Note that the scroll event is throttled, so you may not receive as many events as you would expect. 
 **endMessage** | node |  this message is shown to the user when he has seen all the records which means he's at the bottom and `hasMore` is `false`
+**className** | string | add any custom class you want
 **style** | object | any style which you want to override
 **height** | number | optional, give only if you want to have a fixed height scrolling content
 **scrollableTarget** | node or string | optional, reference to a (parent) DOM element that is already providing overflow scrollbars to the `InfiniteScroll` component. *You should provide the `id` of the DOM node preferably.*
