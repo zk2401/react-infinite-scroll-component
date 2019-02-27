@@ -150,9 +150,12 @@ export default class InfiniteScroll extends Component {
     }
 
     requestAnimationFrame(() => {
-      this._infScroll.style.overflow = "auto";
-      this._infScroll.style.transform = "none";
-      this._infScroll.style.willChange = "none";
+      // this._infScroll
+      if (this._infScroll) {
+          this._infScroll.style.overflow = "auto";
+          this._infScroll.style.transform = "none";
+          this._infScroll.style.willChange = "none";
+      }
     });
   }
 
