@@ -17,14 +17,14 @@ export function parseThreshold(scrollThreshold) {
   }
 
   if (typeof scrollThreshold === "string") {
-    if (scrollThreshold.match(/^(\d*(.\d+)?)px$/)) {
+    if (scrollThreshold.match(/^(\d*(\.\d+)?)px$/)) {
       return {
         unit: ThresholdUnits.Pixel,
         value: parseFloat(scrollThreshold),
       };
     }
 
-    if (scrollThreshold.match(/^(\d*(.\d+)?)%$/)) {
+    if (scrollThreshold.match(/^(\d*(\.\d+)?)%$/)) {
       return {
         unit: ThresholdUnits.Percent,
         value: parseFloat(scrollThreshold),
