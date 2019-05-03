@@ -2,13 +2,15 @@
   "name": "react-infinite-scroll-component",
   "version": "4.5.2",
   "description": "An Infinite Scroll component in react.",
-  "source": "src/index.ts",
+  "source": "src/index.tsx",
   "main": "dist/react-infinite-scroll-component.js",
   "module": "dist/react-infinite-scroll-component.mjs",
   "unpkg": "dist/react-infinite-scroll-component.umd.js",
   "scripts": {
     "build": "microbundle",
-    "dev": "microbundle watch"
+    "dev": "microbundle watch",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "repository": {
     "type": "git",
@@ -30,7 +32,15 @@
   "homepage": "https://github.com/ankeetmaini/react-infinite-scroll-component#readme",
   "peerDependencies": {},
   "devDependencies": {
+    "@types/react": "^16.8.15",
     "microbundle": "^0.11.0",
-    "typescript": "^3.4.5"
-  }
+    "typescript": "^3.4.5",
+    "@storybook/react": "^5.0.11",
+    "@storybook/addon-actions": "^5.0.11",
+    "@storybook/addon-links": "^5.0.11",
+    "@storybook/addons": "^5.0.11",
+    "@babel/core": "^7.4.4",
+    "babel-loader": "^8.0.5"
+  },
+  "dependencies": {}
 }
