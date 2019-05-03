@@ -23,5 +23,7 @@
   },
   "homepage": "https://github.com/ankeetmaini/react-infinite-scroll-component#readme",
   "peerDependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "typescript": "^3.4.5"
+  }
 }
