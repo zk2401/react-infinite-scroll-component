@@ -1,11 +1,33 @@
-import React, { useState } from "react";
+import React, { CSSProperties } from "react";
 
-export default function InfiniteScroll() {
-  const [count, setCount] = useState(0);
+interface Props {
+  next: () => any;
+  hasMore: boolean;
+  dataLength: number;
+  loader?: JSX.Element;
+  scrollThreshold?: string | number;
+  endMessage?: JSX.Element | string;
+  height?: number;
+  scrollableTarget?: JSX.Element;
+  style?: CSSProperties;
+  className?: string;
+}
+
+const InfiniteScroll: React.SFC<Props> = props => {
+  const style: CSSProperties = {
+    height: props.height || "auto",
+    overflow: "auto",
+    WebkitOverflowScrolling: "touch",
+    ...props.style
+  };
+  const className = `infinite-scroll-component ${props.className || ""}`;
   return (
     <div>
-      <h1>Count: {count}</h1>
-      <button onClick={setCount.bind({}, count + 1)}>Increment counter</button>
+      <div style={style} className={className}>
+        {props.children}
+      </div>
     </div>
   );
-}
+};
+
+export default InfiniteScroll;
