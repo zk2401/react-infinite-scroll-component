@@ -1,24 +1,20 @@
-import React, { CSSProperties, createRef, useEffect, useState } from "react";
+import React, {
+  CSSProperties,
+  createRef,
+  useEffect,
+  useState,
+  useRef
+} from "react";
+import { InfiniteScrollProps } from "./types";
 
-interface Props {
-  next: () => any;
-  hasMore: boolean;
-  dataLength: number;
-  loader?: JSX.Element;
-  scrollThreshold?: number;
-  endMessage?: JSX.Element | string;
-  height?: number;
-  scrollableTarget?: Element;
-  style?: CSSProperties;
-  className?: string;
-}
-
-const InfiniteScroll: React.SFC<Props> = props => {
+const InfiniteScroll: React.SFC<InfiniteScrollProps> = props => {
+  // refs
   const sentinel = createRef<HTMLDivElement>();
   const infiniteScrollElement = createRef<HTMLDivElement>();
+  const apiFired = useRef(false);
+
+  // state
   const [showLoader, setShowLoader] = useState(false);
-  // const [showSentinel, setShowSentinel] = useState(false);
-  // const observer = createRef<IntersectionObserver>();
 
   const style: CSSProperties = {
     height: props.height || "auto",
@@ -42,9 +38,14 @@ const InfiniteScroll: React.SFC<Props> = props => {
     };
     const observer = new IntersectionObserver(entries => {
       entries.forEach(e => {
-        if (e.isIntersecting) {
+        if (e.intersectionRatio === 0) {
+          // means user going back up? remove lock?
+          apiFired.current = false;
+        }
+        if (e.isIntersecting && !apiFired.current) {
           // show loader
           setShowLoader(true);
+          apiFired.current = true;
           props.next();
         }
       });
@@ -56,8 +57,10 @@ const InfiniteScroll: React.SFC<Props> = props => {
     };
   }, []);
 
+  // will receive props
   useEffect(() => {
     setShowLoader(false);
+    apiFired.current = false;
   }, [props.dataLength]);
 
   const className = `infinite-scroll-component ${props.className || ""}`;
@@ -66,8 +69,8 @@ const InfiniteScroll: React.SFC<Props> = props => {
       <div style={style} className={className} ref={infiniteScrollElement}>
         {props.children}
       </div>
-      {showLoader && props.loader}
       <div ref={sentinel} id="infinite-scroll-sentinel" />
+      {showLoader && props.loader}
     </div>
   );
 };
