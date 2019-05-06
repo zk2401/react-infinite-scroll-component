@@ -40,7 +40,7 @@ const InfiniteScroll: React.SFC<Props> = props => {
       threshold: 1,
       rootMargin: `${props.scrollThreshold || 50}px`
     };
-    let observer = new IntersectionObserver(entries => {
+    const observer = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (e.isIntersecting) {
           // show loader
