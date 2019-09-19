@@ -1,5 +1,5 @@
 // https://remysharp.com/2010/07/21/throttling-function-calls
-export default function throttle(fn, threshhold, scope) {
+export default function throttle(fn, threshhold, scope = {}) {
   threshhold || (threshhold = 250);
   var last,
       deferTimer;

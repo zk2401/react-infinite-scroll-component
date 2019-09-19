@@ -1,11 +1,11 @@
 import React, { Component, ReactNode, CSSProperties } from "react";
-import PropTypes from "prop-types";
 import throttle from "./utils/throttle";
 import { ThresholdUnits, parseThreshold } from "./utils/threshold";
+
 type Fn = () => any;
 interface Props {
   next: Fn;
-  hasMore: ReactNode;
+  hasMore: boolean;
   children: ReactNode;
   loader: ReactNode;
   scrollThreshold: number | string;
@@ -13,14 +13,17 @@ interface Props {
   style: CSSProperties;
   height: number;
   scrollableTarget: ReactNode;
-  hasChildren: ReactNode;
-  pullDownToRefresh: ReactNode;
+  hasChildren: boolean;
+  pullDownToRefresh: boolean;
   pullDownToRefreshContent: ReactNode;
   releaseToRefreshContent: ReactNode;
   pullDownToRefreshThreshold: number;
   refreshFunction: Fn;
-  onScroll: Fn;
+  onScroll: (e: MouseEvent) => any;
   dataLength: number;
+  initialScrollY: number;
+  key: string;
+  className: string;
 }
 
 interface State {
@@ -29,7 +32,6 @@ interface State {
 }
 
 export default class InfiniteScroll extends Component<Props, State> {
-  private throttledOnScrollListener: () => void;
   constructor(props: Props) {
     super(props);
 
@@ -48,32 +50,43 @@ export default class InfiniteScroll extends Component<Props, State> {
     this.getScrollableTarget = this.getScrollableTarget.bind(this);
   }
 
+  private throttledOnScrollListener: () => void;
+  private _scrollableNode: HTMLElement | undefined | null;
+  private el: HTMLElement | undefined | Window & typeof globalThis;
+  private _infScroll: HTMLDivElement | undefined;
   private lastScrollTop = 0;
   private actionTriggered = false;
+  private _pullDown: HTMLDivElement | undefined;
 
   // variables to keep track of pull down behaviour
-  private startY = 0;
-  private currentY = 0;
-  private dragging = false;
+  private startY: number = 0;
+  private currentY: number = 0;
+  private dragging: boolean = false;
 
   // will be populated in componentDidMount
   // based on the height of the pull down element
-  private maxPullDownDistance = 0;
+  private maxPullDownDistance: number = 0;
+
   componentDidMount() {
     this._scrollableNode = this.getScrollableTarget();
     this.el = this.props.height
       ? this._infScroll
       : this._scrollableNode || window;
-    this.el.addEventListener("scroll", this.throttledOnScrollListener);
+
+    if (this.el) {
+      this.el.addEventListener("scroll", this.throttledOnScrollListener);
+    }
 
     if (
       typeof this.props.initialScrollY === "number" &&
+      this.el &&
+      this.el instanceof HTMLElement &&
       this.el.scrollHeight > this.props.initialScrollY
     ) {
       this.el.scrollTo(0, this.props.initialScrollY);
     }
 
-    if (this.props.pullDownToRefresh) {
+    if (this.props.pullDownToRefresh && this.el) {
       this.el.addEventListener("touchstart", this.onStart);
       this.el.addEventListener("touchmove", this.onMove);
       this.el.addEventListener("touchend", this.onEnd);
@@ -83,7 +96,12 @@ export default class InfiniteScroll extends Component<Props, State> {
       this.el.addEventListener("mouseup", this.onEnd);
 
       // get BCR of pullDown element to position it above
-      this.maxPullDownDistance = this._pullDown.firstChild.getBoundingClientRect().height;
+      this.maxPullDownDistance =
+        (this._pullDown &&
+          this._pullDown.firstChild &&
+          (this._pullDown.firstChild as HTMLDivElement).getBoundingClientRect()
+            .height) ||
+        0;
       this.forceUpdate();
 
       if (typeof this.props.refreshFunction !== "function") {
@@ -97,20 +115,22 @@ export default class InfiniteScroll extends Component<Props, State> {
   }
 
   componentWillUnmount() {
-    this.el.removeEventListener("scroll", this.throttledOnScrollListener);
+    if (this.el) {
+      this.el.removeEventListener("scroll", this.throttledOnScrollListener);
 
-    if (this.props.pullDownToRefresh) {
-      this.el.removeEventListener("touchstart", this.onStart);
-      this.el.removeEventListener("touchmove", this.onMove);
-      this.el.removeEventListener("touchend", this.onEnd);
+      if (this.props.pullDownToRefresh) {
+        this.el.removeEventListener("touchstart", this.onStart);
+        this.el.removeEventListener("touchmove", this.onMove);
+        this.el.removeEventListener("touchend", this.onEnd);
 
-      this.el.removeEventListener("mousedown", this.onStart);
-      this.el.removeEventListener("mousemove", this.onMove);
-      this.el.removeEventListener("mouseup", this.onEnd);
+        this.el.removeEventListener("mousedown", this.onStart);
+        this.el.removeEventListener("mousemove", this.onMove);
+        this.el.removeEventListener("mouseup", this.onEnd);
+      }
     }
   }
 
-  componentWillReceiveProps(props) {
+  componentWillReceiveProps(props: Props) {
     // do nothing when dataLength and key are unchanged
     if (
       this.props.key === props.key &&
@@ -141,20 +161,32 @@ export default class InfiniteScroll extends Component<Props, State> {
     return null;
   }
 
-  onStart(evt) {
+  onStart: EventListener = (evt: Event) => {
     if (this.lastScrollTop) return;
 
     this.dragging = true;
-    this.startY = evt.pageY || evt.touches[0].pageY;
+
+    if (evt instanceof MouseEvent) {
+      this.startY = evt.pageY;
+    } else if (evt instanceof TouchEvent) {
+      this.startY = evt.touches[0].pageY;
+    }
     this.currentY = this.startY;
 
-    this._infScroll.style.willChange = "transform";
-    this._infScroll.style.transition = `transform 0.2s cubic-bezier(0,0,0.31,1)`;
-  }
+    if (this._infScroll) {
+      this._infScroll.style.willChange = "transform";
+      this._infScroll.style.transition = `transform 0.2s cubic-bezier(0,0,0.31,1)`;
+    }
+  };
 
-  onMove(evt) {
+  onMove: EventListener = (evt: Event) => {
     if (!this.dragging) return;
-    this.currentY = evt.pageY || evt.touches[0].pageY;
+
+    if (evt instanceof MouseEvent) {
+      this.currentY = evt.pageY;
+    } else if (evt instanceof TouchEvent) {
+      this.currentY = evt.touches[0].pageY;
+    }
 
     // user is scrolling down to up
     if (this.currentY < this.startY) return;
@@ -168,12 +200,14 @@ export default class InfiniteScroll extends Component<Props, State> {
     // so you can drag upto 1.5 times of the maxPullDownDistance
     if (this.currentY - this.startY > this.maxPullDownDistance * 1.5) return;
 
-    this._infScroll.style.overflow = "visible";
-    this._infScroll.style.transform = `translate3d(0px, ${this.currentY -
-      this.startY}px, 0px)`;
-  }
+    if (this._infScroll) {
+      this._infScroll.style.overflow = "visible";
+      this._infScroll.style.transform = `translate3d(0px, ${this.currentY -
+        this.startY}px, 0px)`;
+    }
+  };
 
-  onEnd(evt) {
+  onEnd: EventListener = evt => {
     this.startY = 0;
     this.currentY = 0;
 
@@ -191,9 +225,12 @@ export default class InfiniteScroll extends Component<Props, State> {
         this._infScroll.style.willChange = "none";
       }
     });
-  }
+  };
 
-  isElementAtBottom(target, scrollThreshold = 0.8) {
+  isElementAtBottom(
+    target: HTMLElement,
+    scrollThreshold: string | number = 0.8
+  ) {
     const clientHeight =
       target === document.body || target === document.documentElement
         ? window.screen.availHeight
@@ -213,7 +250,7 @@ export default class InfiniteScroll extends Component<Props, State> {
     );
   }
 
-  onScrollListener(event) {
+  onScrollListener(event: MouseEvent) {
     if (typeof this.props.onScroll === "function") {
       // Execute this callback in next tick so that it does not affect the
       // functionality of the library.
@@ -222,7 +259,7 @@ export default class InfiniteScroll extends Component<Props, State> {
 
     let target =
       this.props.height || this._scrollableNode
-        ? event.target
+        ? (event.target as HTMLElement)
         : document.documentElement.scrollTop
         ? document.documentElement
         : document.body;
@@ -249,10 +286,14 @@ export default class InfiniteScroll extends Component<Props, State> {
       overflow: "auto",
       WebkitOverflowScrolling: "touch",
       ...this.props.style
-    };
+    } as CSSProperties;
     const hasChildren =
       this.props.hasChildren ||
-      !!(this.props.children && this.props.children.length);
+      !!(
+        this.props.children &&
+        this.props.children instanceof Array &&
+        this.props.children.length
+      );
 
     // because heighted infiniteScroll visualy breaks
     // on drag down as overflow becomes visible
@@ -264,13 +305,13 @@ export default class InfiniteScroll extends Component<Props, State> {
       <div style={outerDivStyle}>
         <div
           className={`infinite-scroll-component ${this.props.className || ""}`}
-          ref={infScroll => (this._infScroll = infScroll)}
+          ref={(infScroll: HTMLDivElement) => (this._infScroll = infScroll)}
           style={style}
         >
           {this.props.pullDownToRefresh && (
             <div
               style={{ position: "relative" }}
-              ref={pullDown => (this._pullDown = pullDown)}
+              ref={(pullDown: HTMLDivElement) => (this._pullDown = pullDown)}
             >
               <div
                 style={{
@@ -298,31 +339,3 @@ export default class InfiniteScroll extends Component<Props, State> {
     );
   }
 }
-
-InfiniteScroll.defaultProps = {
-  pullDownToRefreshContent: <h3>Pull down to refresh</h3>,
-  releaseToRefreshContent: <h3>Release to refresh</h3>,
-  pullDownToRefreshThreshold: 100,
-  disableBrowserPullToRefresh: true
-};
-
-InfiniteScroll.propTypes = {
-  next: PropTypes.func,
-  hasMore: PropTypes.bool,
-  children: PropTypes.node,
-  loader: PropTypes.node.isRequired,
-  scrollThreshold: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  endMessage: PropTypes.node,
-  style: PropTypes.object,
-  height: PropTypes.number,
-  scrollableTarget: PropTypes.node,
-  hasChildren: PropTypes.bool,
-  pullDownToRefresh: PropTypes.bool,
-  pullDownToRefreshContent: PropTypes.node,
-  releaseToRefreshContent: PropTypes.node,
-  pullDownToRefreshThreshold: PropTypes.number,
-  refreshFunction: PropTypes.func,
-  onScroll: PropTypes.func,
-  dataLength: PropTypes.number.isRequired,
-  key: PropTypes.string
-};
