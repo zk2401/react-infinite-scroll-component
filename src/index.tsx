@@ -1,5 +1,5 @@
 import React, { Component, ReactNode, CSSProperties } from "react";
-import throttle from "./utils/throttle";
+import { throttle } from 'throttle-debounce';
 import { ThresholdUnits, parseThreshold } from "./utils/threshold";
 
 type Fn = () => any;
@@ -41,7 +41,7 @@ export default class InfiniteScroll extends Component<Props, State> {
     };
 
     this.onScrollListener = this.onScrollListener.bind(this);
-    this.throttledOnScrollListener = throttle(this.onScrollListener, 150).bind(
+    this.throttledOnScrollListener = throttle(150, this.onScrollListener).bind(
       this
     );
     this.onStart = this.onStart.bind(this);
@@ -50,7 +50,7 @@ export default class InfiniteScroll extends Component<Props, State> {
     this.getScrollableTarget = this.getScrollableTarget.bind(this);
   }
 
-  private throttledOnScrollListener: () => void;
+  private throttledOnScrollListener: (e: MouseEvent) => void;
   private _scrollableNode: HTMLElement | undefined | null;
   private el: HTMLElement | undefined | Window & typeof globalThis;
   private _infScroll: HTMLDivElement | undefined;
@@ -74,7 +74,7 @@ export default class InfiniteScroll extends Component<Props, State> {
       : this._scrollableNode || window;
 
     if (this.el) {
-      this.el.addEventListener("scroll", this.throttledOnScrollListener);
+      this.el.addEventListener("scroll", (e) => this.throttledOnScrollListener(e as MouseEvent));
     }
 
     if (
@@ -116,7 +116,7 @@ export default class InfiniteScroll extends Component<Props, State> {
 
   componentWillUnmount() {
     if (this.el) {
-      this.el.removeEventListener("scroll", this.throttledOnScrollListener);
+      this.el.removeEventListener("scroll", (e) => this.throttledOnScrollListener(e as MouseEvent));
 
       if (this.props.pullDownToRefresh) {
         this.el.removeEventListener("touchstart", this.onStart);
