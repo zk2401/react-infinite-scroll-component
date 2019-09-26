@@ -4,26 +4,26 @@ import { ThresholdUnits, parseThreshold } from "./utils/threshold";
 
 type Fn = () => any;
 interface Props {
-  next: Fn;
-  hasMore: boolean;
-  children: ReactNode;
+  next?: Fn;
+  hasMore?: boolean;
+  children?: ReactNode;
   loader: ReactNode;
-  scrollThreshold: number | string;
-  endMessage: ReactNode;
-  style: CSSProperties;
-  height: number;
-  scrollableTarget: ReactNode;
-  hasChildren: boolean;
-  pullDownToRefresh: boolean;
-  pullDownToRefreshContent: ReactNode;
-  releaseToRefreshContent: ReactNode;
-  pullDownToRefreshThreshold: number;
-  refreshFunction: Fn;
-  onScroll: (e: MouseEvent) => any;
+  scrollThreshold?: number | string;
+  endMessage?: ReactNode;
+  style?: CSSProperties;
+  height?: number;
+  scrollableTarget?: ReactNode;
+  hasChildren?: boolean;
+  pullDownToRefresh?: boolean;
+  pullDownToRefreshContent?: ReactNode;
+  releaseToRefreshContent?: ReactNode;
+  pullDownToRefreshThreshold?: number;
+  refreshFunction?: Fn;
+  onScroll?: (e: MouseEvent) => any;
   dataLength: number;
-  initialScrollY: number;
-  key: string;
-  className: string;
+  initialScrollY?: number;
+  key?: string;
+  className?: string;
 }
 
 interface State {
@@ -191,7 +191,7 @@ export default class InfiniteScroll extends Component<Props, State> {
     // user is scrolling down to up
     if (this.currentY < this.startY) return;
 
-    if (this.currentY - this.startY >= this.props.pullDownToRefreshThreshold) {
+    if (this.currentY - this.startY >= Number(this.props.pullDownToRefreshThreshold)) {
       this.setState({
         pullToRefreshThresholdBreached: true
       });
@@ -207,7 +207,7 @@ export default class InfiniteScroll extends Component<Props, State> {
     }
   };
 
-  onEnd: EventListener = evt => {
+  onEnd: EventListener = () => {
     this.startY = 0;
     this.currentY = 0;
 
@@ -254,7 +254,7 @@ export default class InfiniteScroll extends Component<Props, State> {
     if (typeof this.props.onScroll === "function") {
       // Execute this callback in next tick so that it does not affect the
       // functionality of the library.
-      setTimeout(() => this.props.onScroll(event), 0);
+      setTimeout(() => this.props.onScroll && this.props.onScroll(event), 0);
     }
 
     let target =
@@ -274,7 +274,7 @@ export default class InfiniteScroll extends Component<Props, State> {
     if (atBottom && this.props.hasMore) {
       this.actionTriggered = true;
       this.setState({ showLoader: true });
-      this.props.next();
+      this.props.next && this.props.next();
     }
 
     this.lastScrollTop = target.scrollTop;

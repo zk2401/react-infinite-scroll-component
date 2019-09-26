@@ -9,20 +9,29 @@ var common = {
   entry: {},
   output: {},
   module: {
-    loaders: [
-      { test: /\.js$/, exclude: /node_modules/, loader: 'babel' },
-      { test: /\.css$/, exclude: /node_modules/, loader: 'style!css' }
+    rules: [
+      { test: /\.js$/, exclude: /node_modules/, use: 'babel-loader' },
+      { test: /\.css$/, exclude: /node_modules/, use: 'style!css' },
+      { test: /\.tsx?$/, exclude: /node_modules/, use: 'ts-loader' },
     ]
   },
   plugins: [
-    new webpack.NoErrorsPlugin()
-  ]
+    new webpack.NoEmitOnErrorsPlugin()
+  ],
+  resolve: {
+    modules: [
+        path.join(__dirname, "src"),
+        "node_modules"
+      ],
+    extensions: ['.js', '.ts', '.tsx'],
+  },
 };
 
 var finalConf;
 if (isDevelopment) {
   finalConf = Object.assign({}, common);
-  finalConf.entry.app = ['webpack-hot-middleware/client', './demos/index.js']; // HMR
+  finalConf.mode = 'development';
+  finalConf.entry.app = ['./demos/index.tsx']; // HMR
   finalConf.output = {
     path: BUILD_PATH,
     filename: 'demo.js'
@@ -31,13 +40,12 @@ if (isDevelopment) {
   finalConf.plugins = [...finalConf.plugins,
     new HtmlWebpackPlugin({
       template: './index.html'
-    }),
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin()];
+    })];
 } else {
   // production config
   finalConf = Object.assign({}, common);
-  finalConf.entry.app = './app/index.js';
+  finalConf.entry.app = './src/index.tsx';
+  finalConf.mode = 'production';
   finalConf.output = {
     path: BUILD_PATH,
     filename: 'index.js',
@@ -54,8 +62,6 @@ if (isDevelopment) {
     }
   };
   finalConf.plugins = [...finalConf.plugins,
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.optimize.DedupePlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': '"production"'
     })
