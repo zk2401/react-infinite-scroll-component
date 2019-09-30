@@ -1,12 +1,12 @@
 import React, { Component, ReactNode, CSSProperties } from "react";
-import { throttle } from 'throttle-debounce';
+import { throttle } from "throttle-debounce";
 import { ThresholdUnits, parseThreshold } from "./utils/threshold";
 
 type Fn = () => any;
 interface Props {
-  next?: Fn;
-  hasMore?: boolean;
-  children?: ReactNode;
+  next: Fn;
+  hasMore: boolean;
+  children: ReactNode;
   loader: ReactNode;
   scrollThreshold?: number | string;
   endMessage?: ReactNode;
@@ -74,7 +74,9 @@ export default class InfiniteScroll extends Component<Props, State> {
       : this._scrollableNode || window;
 
     if (this.el) {
-      this.el.addEventListener("scroll", (e) => this.throttledOnScrollListener(e as MouseEvent));
+      this.el.addEventListener("scroll", e =>
+        this.throttledOnScrollListener(e as MouseEvent)
+      );
     }
 
     if (
@@ -116,7 +118,9 @@ export default class InfiniteScroll extends Component<Props, State> {
 
   componentWillUnmount() {
     if (this.el) {
-      this.el.removeEventListener("scroll", (e) => this.throttledOnScrollListener(e as MouseEvent));
+      this.el.removeEventListener("scroll", e =>
+        this.throttledOnScrollListener(e as MouseEvent)
+      );
 
       if (this.props.pullDownToRefresh) {
         this.el.removeEventListener("touchstart", this.onStart);
@@ -191,7 +195,10 @@ export default class InfiniteScroll extends Component<Props, State> {
     // user is scrolling down to up
     if (this.currentY < this.startY) return;
 
-    if (this.currentY - this.startY >= Number(this.props.pullDownToRefreshThreshold)) {
+    if (
+      this.currentY - this.startY >=
+      Number(this.props.pullDownToRefreshThreshold)
+    ) {
       this.setState({
         pullToRefreshThresholdBreached: true
       });
