@@ -1,29 +1,29 @@
 import React, { Component, ReactNode, CSSProperties } from "react";
-import throttle from "./utils/throttle";
+import { throttle } from 'throttle-debounce';
 import { ThresholdUnits, parseThreshold } from "./utils/threshold";
 
 type Fn = () => any;
 interface Props {
-  next: Fn;
-  hasMore: boolean;
-  children: ReactNode;
+  next?: Fn;
+  hasMore?: boolean;
+  children?: ReactNode;
   loader: ReactNode;
-  scrollThreshold: number | string;
-  endMessage: ReactNode;
-  style: CSSProperties;
-  height: number;
-  scrollableTarget: ReactNode;
-  hasChildren: boolean;
-  pullDownToRefresh: boolean;
-  pullDownToRefreshContent: ReactNode;
-  releaseToRefreshContent: ReactNode;
-  pullDownToRefreshThreshold: number;
-  refreshFunction: Fn;
-  onScroll: (e: MouseEvent) => any;
+  scrollThreshold?: number | string;
+  endMessage?: ReactNode;
+  style?: CSSProperties;
+  height?: number;
+  scrollableTarget?: ReactNode;
+  hasChildren?: boolean;
+  pullDownToRefresh?: boolean;
+  pullDownToRefreshContent?: ReactNode;
+  releaseToRefreshContent?: ReactNode;
+  pullDownToRefreshThreshold?: number;
+  refreshFunction?: Fn;
+  onScroll?: (e: MouseEvent) => any;
   dataLength: number;
-  initialScrollY: number;
-  key: string;
-  className: string;
+  initialScrollY?: number;
+  key?: string;
+  className?: string;
 }
 
 interface State {
@@ -41,7 +41,7 @@ export default class InfiniteScroll extends Component<Props, State> {
     };
 
     this.onScrollListener = this.onScrollListener.bind(this);
-    this.throttledOnScrollListener = throttle(this.onScrollListener, 150).bind(
+    this.throttledOnScrollListener = throttle(150, this.onScrollListener).bind(
       this
     );
     this.onStart = this.onStart.bind(this);
@@ -50,7 +50,7 @@ export default class InfiniteScroll extends Component<Props, State> {
     this.getScrollableTarget = this.getScrollableTarget.bind(this);
   }
 
-  private throttledOnScrollListener: () => void;
+  private throttledOnScrollListener: (e: MouseEvent) => void;
   private _scrollableNode: HTMLElement | undefined | null;
   private el: HTMLElement | undefined | Window & typeof globalThis;
   private _infScroll: HTMLDivElement | undefined;
@@ -74,7 +74,7 @@ export default class InfiniteScroll extends Component<Props, State> {
       : this._scrollableNode || window;
 
     if (this.el) {
-      this.el.addEventListener("scroll", this.throttledOnScrollListener);
+      this.el.addEventListener("scroll", (e) => this.throttledOnScrollListener(e as MouseEvent));
     }
 
     if (
@@ -116,7 +116,7 @@ export default class InfiniteScroll extends Component<Props, State> {
 
   componentWillUnmount() {
     if (this.el) {
-      this.el.removeEventListener("scroll", this.throttledOnScrollListener);
+      this.el.removeEventListener("scroll", (e) => this.throttledOnScrollListener(e as MouseEvent));
 
       if (this.props.pullDownToRefresh) {
         this.el.removeEventListener("touchstart", this.onStart);
@@ -191,7 +191,7 @@ export default class InfiniteScroll extends Component<Props, State> {
     // user is scrolling down to up
     if (this.currentY < this.startY) return;
 
-    if (this.currentY - this.startY >= this.props.pullDownToRefreshThreshold) {
+    if (this.currentY - this.startY >= Number(this.props.pullDownToRefreshThreshold)) {
       this.setState({
         pullToRefreshThresholdBreached: true
       });
@@ -207,7 +207,7 @@ export default class InfiniteScroll extends Component<Props, State> {
     }
   };
 
-  onEnd: EventListener = evt => {
+  onEnd: EventListener = () => {
     this.startY = 0;
     this.currentY = 0;
 
@@ -254,7 +254,7 @@ export default class InfiniteScroll extends Component<Props, State> {
     if (typeof this.props.onScroll === "function") {
       // Execute this callback in next tick so that it does not affect the
       // functionality of the library.
-      setTimeout(() => this.props.onScroll(event), 0);
+      setTimeout(() => this.props.onScroll && this.props.onScroll(event), 0);
     }
 
     let target =
@@ -274,7 +274,7 @@ export default class InfiniteScroll extends Component<Props, State> {
     if (atBottom && this.props.hasMore) {
       this.actionTriggered = true;
       this.setState({ showLoader: true });
-      this.props.next();
+      this.props.next && this.props.next();
     }
 
     this.lastScrollTop = target.scrollTop;
