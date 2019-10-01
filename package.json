@@ -13,7 +13,8 @@
     "lint": "eslint 'src/**/*.{ts,tsx,js,jsx}'",
     "lint:fix": "yarn lint --fix",
     "prettier:check": "prettier --check 'src/**/*'",
-    "prettify": "prettier --write 'src/**/*'"
+    "prettify": "prettier --write 'src/**/*'",
+    "ts-check": "tsc -p tsconfig.json --noEmit"
   },
   "repository": {
     "type": "git",
@@ -68,7 +69,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "yarn run ts-check && lint-staged"
     }
   },
   "lint-staged": {
