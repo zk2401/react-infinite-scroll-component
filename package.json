@@ -14,7 +14,8 @@
     "lint:fix": "yarn lint --fix",
     "prettier:check": "prettier --check 'src/**/*'",
     "prettify": "prettier --write 'src/**/*'",
-    "ts-check": "tsc -p tsconfig.json --noEmit"
+    "ts-check": "tsc -p tsconfig.json --noEmit",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -57,11 +58,15 @@
     "eslint-plugin-react": "^7.15.0",
     "husky": ">=1",
     "lint-staged": ">=8",
+    "@testing-library/react": "^9.2.0",
+    "@types/jest": "^24.0.18",
+    "jest": "^24.9.0",
     "microbundle": "^0.11.0",
     "prettier": "1.18.2",
     "react": "^16.10.1",
     "react-docgen-typescript-loader": "^3.2.1",
     "react-dom": "^16.10.1",
+    "ts-jest": "^24.1.0",
     "typescript": "^3.6.3"
   },
   "dependencies": {
