@@ -9,7 +9,11 @@
   "scripts": {
     "build": "microbundle",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "lint": "eslint 'src/**/*.{ts,tsx,js,jsx}'",
+    "lint:fix": "yarn lint --fix",
+    "prettier:check": "prettier --check 'src/**/*'",
+    "prettify": "prettier --write 'src/**/*'"
   },
   "repository": {
     "type": "git",
@@ -43,9 +47,15 @@
     "@types/react-dom": "^16.9.1",
     "@types/storybook__react": "^4.0.2",
     "@types/throttle-debounce": "^2.1.0",
+    "@typescript-eslint/eslint-plugin": "^2.3.2",
+    "@typescript-eslint/parser": "^2.3.2",
     "awesome-typescript-loader": "^5.2.1",
     "babel-loader": "^8.0.6",
+    "eslint": "^6.5.1",
+    "eslint-config-prettier": "^6.3.0",
+    "eslint-plugin-react": "^7.15.0",
     "microbundle": "^0.11.0",
+    "prettier": "1.18.2",
     "react": "^16.10.1",
     "react-docgen-typescript-loader": "^3.2.1",
     "react-dom": "^16.10.1",

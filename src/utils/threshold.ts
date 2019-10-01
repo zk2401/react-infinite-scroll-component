@@ -9,14 +9,14 @@ const defaultThreshold = {
 };
 
 export function parseThreshold(scrollThreshold: string | number) {
-  if (typeof scrollThreshold === "number") {
+  if (typeof scrollThreshold === 'number') {
     return {
       unit: ThresholdUnits.Percent,
       value: scrollThreshold * 100,
     };
   }
 
-  if (typeof scrollThreshold === "string") {
+  if (typeof scrollThreshold === 'string') {
     if (scrollThreshold.match(/^(\d*(\.\d+)?)px$/)) {
       return {
         unit: ThresholdUnits.Pixel,
@@ -31,7 +31,9 @@ export function parseThreshold(scrollThreshold: string | number) {
       };
     }
 
-    console.warn('scrollThreshold format is invalid. Valid formats: "120px", "50%"...');
+    console.warn(
+      'scrollThreshold format is invalid. Valid formats: "120px", "50%"...'
+    );
 
     return defaultThreshold;
   }
