@@ -27,7 +27,10 @@ export default class WindowInfiniteScrollComponent extends React.Component<
           dataLength={this.state.data.length}
         >
           {this.state.data.map((_, i) => (
-            <div style={{ height: 30, margin: 4, border: '1px solid hotpink' }}>
+            <div
+              key={i}
+              style={{ height: 30, margin: 4, border: '1px solid hotpink' }}
+            >
               #{i + 1} row
             </div>
           ))}

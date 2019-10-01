@@ -16,4 +16,7 @@ module.exports = {
     'prettier/@typescript-eslint',
     'prettier/react',
   ],
+  rules: {
+    '@typescript-eslint/prefer-regexp-exec': 1,
+  },
 };

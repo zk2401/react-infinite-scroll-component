@@ -40,14 +40,12 @@ export default class InfiniteScroll extends Component<Props, State> {
       pullToRefreshThresholdBreached: false,
     };
 
-    this.onScrollListener = this.onScrollListener.bind(this);
     this.throttledOnScrollListener = throttle(150, this.onScrollListener).bind(
       this
     );
     this.onStart = this.onStart.bind(this);
     this.onMove = this.onMove.bind(this);
     this.onEnd = this.onEnd.bind(this);
-    this.getScrollableTarget = this.getScrollableTarget.bind(this);
   }
 
   private throttledOnScrollListener: (e: MouseEvent) => void;
@@ -134,7 +132,7 @@ export default class InfiniteScroll extends Component<Props, State> {
     }
   }
 
-  componentWillReceiveProps(props: Props) {
+  UNSAFE_componentWillReceiveProps(props: Props) {
     // do nothing when dataLength and key are unchanged
     if (
       this.props.key === props.key &&
@@ -150,7 +148,7 @@ export default class InfiniteScroll extends Component<Props, State> {
     });
   }
 
-  getScrollableTarget() {
+  getScrollableTarget = () => {
     if (this.props.scrollableTarget instanceof HTMLElement)
       return this.props.scrollableTarget;
     if (typeof this.props.scrollableTarget === 'string') {
@@ -163,7 +161,7 @@ export default class InfiniteScroll extends Component<Props, State> {
       `);
     }
     return null;
-  }
+  };
 
   onStart: EventListener = (evt: Event) => {
     if (this.lastScrollTop) return;
@@ -257,7 +255,7 @@ export default class InfiniteScroll extends Component<Props, State> {
     );
   }
 
-  onScrollListener(event: MouseEvent) {
+  onScrollListener = (event: MouseEvent) => {
     if (typeof this.props.onScroll === 'function') {
       // Execute this callback in next tick so that it does not affect the
       // functionality of the library.
@@ -285,7 +283,7 @@ export default class InfiniteScroll extends Component<Props, State> {
     }
 
     this.lastScrollTop = target.scrollTop;
-  }
+  };
 
   render() {
     const style = {
