@@ -87,11 +87,7 @@ export default class InfiniteScroll extends Component {
 
   componentWillReceiveProps(props) {
     // do nothing when dataLength and key are unchanged
-    if (
-      this.props.key === props.key &&
-      this.props.dataLength === props.dataLength
-    )
-      return;
+    if (this.props.key === props.key && this.props.dataLength === props.dataLength) return;
 
     this.actionTriggered = false;
     // update state when new data was sent in
@@ -102,9 +98,8 @@ export default class InfiniteScroll extends Component {
   }
 
   getScrollableTarget() {
-    if (this.props.scrollableTarget instanceof HTMLElement)
-      return this.props.scrollableTarget;
-    if (typeof this.props.scrollableTarget === "string") {
+    if (this.props.scrollableTarget instanceof HTMLElement) return this.props.scrollableTarget;
+    if (typeof this.props.scrollableTarget === 'string') {
       return document.getElementById(this.props.scrollableTarget);
     }
     if (this.props.scrollableTarget === null) {
@@ -124,8 +119,7 @@ export default class InfiniteScroll extends Component {
     this.currentY = this.startY;
 
     this._infScroll.style.willChange = "transform";
-    this._infScroll.style.transition =
-      "transform 0.2s cubic-bezier(0,0,0.31,1)";
+    this._infScroll.style.transition = `transform 0.2s cubic-bezier(0,0,0.31,1)`;
   }
 
   onMove(evt) {
@@ -149,7 +143,7 @@ export default class InfiniteScroll extends Component {
       this.startY}px, 0px)`;
   }
 
-  onEnd() {
+  onEnd(evt) {
     this.startY = 0;
     this.currentY = 0;
 
@@ -162,9 +156,9 @@ export default class InfiniteScroll extends Component {
     requestAnimationFrame(() => {
       // this._infScroll
       if (this._infScroll) {
-        this._infScroll.style.overflow = "auto";
-        this._infScroll.style.transform = "none";
-        this._infScroll.style.willChange = "none";
+          this._infScroll.style.overflow = "auto";
+          this._infScroll.style.transform = "none";
+          this._infScroll.style.willChange = "none";
       }
     });
   }
@@ -184,8 +178,7 @@ export default class InfiniteScroll extends Component {
     }
 
     return (
-      target.scrollTop + clientHeight >=
-      (threshold.value / 100) * target.scrollHeight
+      target.scrollTop + clientHeight >= threshold.value / 100 * target.scrollHeight
     );
   }
 
@@ -200,8 +193,8 @@ export default class InfiniteScroll extends Component {
       this.props.height || this._scrollableNode
         ? event.target
         : document.documentElement.scrollTop
-        ? document.documentElement
-        : document.body;
+          ? document.documentElement
+          : document.body;
 
     // return immediately if the action has already been triggered,
     // prevents multiple triggers.
@@ -239,7 +232,7 @@ export default class InfiniteScroll extends Component {
     return (
       <div style={outerDivStyle}>
         <div
-          className={`infinite-scroll-component ${this.props.className || ""}`}
+          className={`infinite-scroll-component ${this.props.className || ''}`}
           ref={infScroll => (this._infScroll = infScroll)}
           style={style}
         >
