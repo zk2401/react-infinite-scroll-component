@@ -3,3 +3,8 @@ npm-debug.log
 .idea
 node_modules
 /lib
+.rts2_*
+dist
+.vscode
+storybook-static/
+coverage/

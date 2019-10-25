@@ -2,15 +2,21 @@
   "name": "react-infinite-scroll-component",
   "version": "4.5.3",
   "description": "An Infinite Scroll component in react.",
-  "main": "lib/index.js",
+  "source": "src/index.tsx",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "unpkg": "dist/index.umd.js",
   "scripts": {
-    "dev": "NODE_ENV=development node server.js",
-    "build-demos": "NODE_ENV=development node_modules/.bin/webpack",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublish": "NODE_ENV=production node_modules/.bin/webpack --config webpack.config.js"
-  },
-  "directories": {
-    "demos": "demos"
+    "build": "microbundle",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook",
+    "codecov": "codecov",
+    "lint": "eslint 'src/**/*.{ts,tsx,js,jsx}'",
+    "lint:fix": "yarn lint --fix",
+    "prettier:check": "prettier --check 'src/**/*'",
+    "prettify": "prettier --write 'src/**/*'",
+    "ts-check": "tsc -p tsconfig.json --noEmit",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -31,22 +37,59 @@
   },
   "homepage": "https://github.com/ankeetmaini/react-infinite-scroll-component#readme",
   "peerDependencies": {
-    "react": ">=0.14.0",
-    "prop-types": "^15.0.0"
+    "react": ">=16.0.0"
   },
   "devDependencies": {
-    "babel": "^5.8.23",
-    "babel-eslint": "^4.1.3",
-    "babel-loader": "^5.3.1",
-    "eslint-plugin-react": "^3.5.1",
-    "html-loader": "^0.4.3",
-    "html-webpack-plugin": "^2.10.0",
-    "prop-types": "~15.5.8",
-    "react": "~15.5.4",
-    "react-dom": "~15.5.4",
-    "react-hot-loader": "^1.3.0",
-    "webpack": "^1.10.1",
-    "webpack-dev-server": "^1.10.1",
-    "webpack-hot-middleware": "^2.10.0"
+    "@babel/core": "^7.6.2",
+    "@storybook/addon-actions": "^5.2.1",
+    "@storybook/addon-info": "^5.2.1",
+    "@storybook/addon-links": "^5.2.1",
+    "@storybook/addons": "^5.2.1",
+    "@storybook/react": "^5.2.1",
+    "@testing-library/react": "^9.2.0",
+    "@types/jest": "^24.0.18",
+    "@types/react": "^16.9.2",
+    "@types/react-dom": "^16.9.1",
+    "@types/storybook__react": "^4.0.2",
+    "@types/throttle-debounce": "^2.1.0",
+    "@typescript-eslint/eslint-plugin": "^2.3.2",
+    "@typescript-eslint/parser": "^2.3.2",
+    "awesome-typescript-loader": "^5.2.1",
+    "babel-loader": "^8.0.6",
+    "eslint": "^6.5.1",
+    "eslint-config-prettier": "^6.3.0",
+    "eslint-plugin-react": "^7.15.0",
+    "husky": ">=1",
+    "jest": "^24.9.0",
+    "lint-staged": ">=8",
+    "microbundle": "^0.11.0",
+    "prettier": "1.18.2",
+    "react": "^16.10.1",
+    "react-docgen-typescript-loader": "^3.2.1",
+    "react-dom": "^16.10.1",
+    "ts-jest": "^24.1.0",
+    "typescript": "^3.6.3"
+  },
+  "dependencies": {
+    "throttle-debounce": "^2.1.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn run ts-check && lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,css,json,md}": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ],
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "git add"
+    ]
   }
 }
