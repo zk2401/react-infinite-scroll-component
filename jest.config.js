@@ -12,13 +12,17 @@ module.exports = {
   // cacheDirectory: "/var/folders/xp/bp966jvd70j25zc1cz6sd905psfs4r/T/jest_ueoec8",
 
   // Automatically clear mock calls and instances between every test
-  clearMocks: true,
+  clearMocks: false,
 
   // Indicates whether the coverage information should be collected while executing the test
-  collectCoverage: false,
+  collectCoverage: true,
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
-  // collectCoverageFrom: null,
+  collectCoverageFrom: [
+    '<rootDir>/src/**/*{js,ts,jsx,tsx}',
+    '!<rootDir>/src/**/*stories',
+    '!**/node_modules/**',
+  ],
 
   // The directory where Jest should output its coverage files
   coverageDirectory: 'coverage',
@@ -27,7 +31,7 @@ module.exports = {
   coveragePathIgnorePatterns: ['/node_modules/', 'stories'],
 
   // A list of reporter names that Jest uses when writing coverage reports
-  coverageReporters: ['json', 'text', 'lcov', 'clover'],
+  coverageReporters: ['lcov', 'clover', 'text', 'text-summary'],
 
   // An object that configures minimum threshold enforcement for coverage results
   // coverageThreshold: null,
