@@ -5,6 +5,10 @@ module.exports = {
     project: path.resolve(__dirname, './tsconfig.json'),
     tsconfigRootDir: __dirname,
   },
+  env: {
+    browser: true,
+    node: true,
+  },
   plugins: ['@typescript-eslint'],
   extends: [
     'eslint:recommended',

@@ -8,6 +8,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
+      - uses: codecov/codecov-action@v1.0.3
+        with:
+          token: ${{secrets.CODECOV_TOKEN}}
 
       - name: install dependencies
         run: yarn
