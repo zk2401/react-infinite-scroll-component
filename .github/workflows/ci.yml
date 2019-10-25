@@ -12,9 +12,6 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - name: upgrade yarn
-        run: npm install yarn -g
-
       - name: install dependencies
         run: yarn
 
