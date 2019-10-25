@@ -6,3 +6,4 @@ node_modules
 .rts2_*
 dist
 .vscode
+storybook-static/
