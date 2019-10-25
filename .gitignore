@@ -5,3 +5,4 @@ node_modules
 /lib
 .rts2_*
 dist
+.vscode

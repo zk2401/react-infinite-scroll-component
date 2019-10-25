@@ -1,0 +1,31 @@
+name: react-infinite-scroll-component
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node_version: [8, 12]
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: upgrade yarn
+        run: npm install yarn -g
+
+      - name: install dependencies
+        run: yarn
+
+      - name: lint
+        run: yarn lint
+
+      - name: prettier
+        run: prettier:check
+
+      - name: unit tests
+        run: yarn test
+
+      - name: ts type checks
+        run: yarn ts-check
