@@ -137,4 +137,21 @@ describe('React Infinite Scroll Component', () => {
     );
     expect(queryByText('Reached end.')).toBeTruthy();
   });
+
+  it('adds a classname to the outer div', () => {
+    const { container } = render(
+      <InfiniteScroll
+        hasMore={true}
+        dataLength={10}
+        next={() => {}}
+        loader={<div>Loading...</div>}
+      >
+        <div />
+      </InfiniteScroll>
+    );
+    const outerDiv = container.getElementsByClassName(
+      'infinite-scroll-component__outerdiv'
+    );
+    expect(outerDiv.length).toBeTruthy();
+  });
 });
