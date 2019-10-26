@@ -8,3 +8,4 @@ dist
 .vscode
 storybook-static/
 coverage/
+yarn-error.log

@@ -307,7 +307,10 @@ export default class InfiniteScroll extends Component<Props, State> {
         ? { overflow: 'auto' }
         : {};
     return (
-      <div style={outerDivStyle}>
+      <div
+        style={outerDivStyle}
+        className="infinite-scroll-component__outerdiv"
+      >
         <div
           className={`infinite-scroll-component ${this.props.className || ''}`}
           ref={(infScroll: HTMLDivElement) => (this._infScroll = infScroll)}
