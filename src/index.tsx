@@ -3,7 +3,7 @@ import { throttle } from 'throttle-debounce';
 import { ThresholdUnits, parseThreshold } from './utils/threshold';
 
 type Fn = () => any;
-interface Props {
+export interface Props {
   next: Fn;
   hasMore: boolean;
   children: ReactNode;
