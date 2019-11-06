@@ -4,11 +4,11 @@
   "description": "An Infinite Scroll component in react.",
   "source": "src/index.tsx",
   "main": "dist/index.js",
-  "module": "dist/index.mjs",
   "unpkg": "dist/index.umd.js",
+  "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "microbundle",
+    "build": "rimraf dist && rollup -c",
     "prepublish": "yarn build",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
@@ -64,13 +64,16 @@
     "husky": ">=1",
     "jest": "^24.9.0",
     "lint-staged": ">=8",
-    "microbundle": "^0.11.0",
     "prettier": "1.18.2",
     "react": "^16.10.1",
     "react-docgen-typescript-loader": "^3.2.1",
     "react-dom": "^16.10.1",
+    "rimraf": "^3.0.0",
+    "rollup": "^1.26.3",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-typescript2": "^0.25.2",
     "ts-jest": "^24.1.0",
-    "typescript": "^3.6.3"
+    "typescript": "^3.7.2"
   },
   "dependencies": {
     "throttle-debounce": "^2.1.0"
