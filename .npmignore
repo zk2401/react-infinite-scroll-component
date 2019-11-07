@@ -6,3 +6,6 @@
 npm-debug.log
 __tests__
 stories/
+.rts2*
+.storybook
+coverage/

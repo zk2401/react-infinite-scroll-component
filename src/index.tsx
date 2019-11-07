@@ -11,7 +11,7 @@ export interface Props {
   scrollThreshold?: number | string;
   endMessage?: ReactNode;
   style?: CSSProperties;
-  height?: number;
+  height?: number | string;
   scrollableTarget?: ReactNode;
   hasChildren?: boolean;
   pullDownToRefresh?: boolean;
