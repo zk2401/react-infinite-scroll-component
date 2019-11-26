@@ -69,8 +69,8 @@ export default class InfiniteScroll extends Component<Props, State> {
     if (typeof this.props.dataLength === 'undefined') {
       throw new Error(
         `mandatory prop "dataLength" is missing. The prop is needed` +
-        ` when loading more content. Check README.md for usage`
-      )
+          ` when loading more content. Check README.md for usage`
+      );
     }
 
     this._scrollableNode = this.getScrollableTarget();
