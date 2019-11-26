@@ -86,14 +86,16 @@ describe('React Infinite Scroll Component', () => {
   describe('When missing the dataLength prop', () => {
     it('throws an error', () => {
       console.error = jest.fn();
-      const props = { loader: 'Loading...', hasMore: false, next: (() => {}) }
+      const props = { loader: 'Loading...', hasMore: false, next: () => {} };
 
       // @ts-ignore
-      expect(() => render(<InfiniteScroll {...props} />)).toThrow(Error)
+      expect(() => render(<InfiniteScroll {...props} />)).toThrow(Error);
       // @ts-ignore
-      expect(console.error.mock.calls[0][0]).toContain('"dataLength" is missing')
+      expect(console.error.mock.calls[0][0]).toContain(
+        '"dataLength" is missing'
+      );
     });
-  })
+  });
 
   describe('When user scrolls to the bottom', () => {
     it('does not show loader if hasMore is false', () => {

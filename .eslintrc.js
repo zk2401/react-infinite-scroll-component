@@ -22,5 +22,7 @@ module.exports = {
   ],
   rules: {
     '@typescript-eslint/prefer-regexp-exec': 1,
+    '@typescript-eslint/ban-ts-ignore': 0,
+    '@typescript-eslint/unbound-method': 1,
   },
 };
