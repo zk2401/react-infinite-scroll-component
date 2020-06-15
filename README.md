@@ -6,6 +6,10 @@ added. An infinite-scroll that actually works and super-simple to integrate!
 # install
 ```bash
   npm install --save react-infinite-scroll-component
+  
+  or
+  
+  yarn add react-infinite-scroll-component 
 
   // in code ES6
   import InfiniteScroll from 'react-infinite-scroll-component';
