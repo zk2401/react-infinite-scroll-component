@@ -22,7 +22,6 @@ export interface Props {
   onScroll?: (e: MouseEvent) => any;
   dataLength: number;
   initialScrollY?: number;
-  key?: string;
   className?: string;
 }
 
@@ -138,11 +137,8 @@ export default class InfiniteScroll extends Component<Props, State> {
   }
 
   UNSAFE_componentWillReceiveProps(props: Props) {
-    // do nothing when dataLength and key are unchanged
-    if (
-      this.props.key === props.key &&
-      this.props.dataLength === props.dataLength
-    )
+    // do nothing when dataLength is unchanged
+    if (this.props.dataLength === props.dataLength)
       return;
 
     this.actionTriggered = false;
