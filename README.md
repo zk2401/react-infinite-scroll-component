@@ -29,6 +29,7 @@ added. An infinite-scroll that actually works and super-simple to integrate!
   // below props only if you need pull down functionality
   refreshFunction={this.refresh}
   pullDownToRefresh
+  pullDownToRefreshThreshold={50}
   pullDownToRefreshContent={
     <h3 style={{textAlign: 'center'}}>&#8595; Pull down to refresh</h3>
   }
@@ -79,7 +80,7 @@ name | type | description
 **pullDownToRefresh** | bool | to enable **Pull Down to Refresh** feature
 **pullDownToRefreshContent** | node | any JSX that you want to show the user, `default={<h3>Pull down to refresh</h3>}`
 **releaseToRefreshContent** | node | any JSX that you want to show the user, `default={<h3>Release to refresh</h3>}`
-**pullDownToRefreshThreshold** | number | minimum distance the user needs to pull down to trigger the refresh, `default=100px`
+**pullDownToRefreshThreshold** | number | minimum distance the user needs to pull down to trigger the refresh, `default=100px` , a lower value may be needed to trigger the refresh depending your users browser.
 **refreshFunction** | function | this function will be called, it should return the fresh data that you want to show the user
 **initialScrollY** | number | set a scroll y position for the component to render with.
 **key** | string | the key for the current data set being shown, used when the same component can show different data sets at different times, `default=undefined`
