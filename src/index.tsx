@@ -138,8 +138,7 @@ export default class InfiniteScroll extends Component<Props, State> {
 
   UNSAFE_componentWillReceiveProps(props: Props) {
     // do nothing when dataLength is unchanged
-    if (this.props.dataLength === props.dataLength)
-      return;
+    if (this.props.dataLength === props.dataLength) return;
 
     this.actionTriggered = false;
     // update state when new data was sent in
