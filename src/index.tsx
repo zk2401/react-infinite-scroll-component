@@ -14,6 +14,7 @@ export interface Props {
   height?: number | string;
   scrollableTarget?: ReactNode;
   hasChildren?: boolean;
+  inverse?: boolean;
   pullDownToRefresh?: boolean;
   pullDownToRefreshContent?: ReactNode;
   releaseToRefreshContent?: ReactNode;
@@ -234,6 +235,28 @@ export default class InfiniteScroll extends Component<Props, State> {
     });
   };
 
+  isElementAtTop(target: HTMLElement, scrollThreshold: string | number = 0.8) {
+    const clientHeight =
+      target === document.body || target === document.documentElement
+        ? window.screen.availHeight
+        : target.clientHeight;
+
+    const threshold = parseThreshold(scrollThreshold);
+
+    if (threshold.unit === ThresholdUnits.Pixel) {
+      return (
+        target.scrollTop <
+          threshold.value + clientHeight - target.scrollHeight ||
+        target.scrollTop === 0
+      );
+    }
+    //targe.scrollTop for brave support
+    return (
+      target.scrollTop < threshold.value + clientHeight - target.scrollHeight ||
+      target.scrollTop === 0
+    );
+  }
+
   isElementAtBottom(
     target: HTMLElement,
     scrollThreshold: string | number = 0.8
@@ -275,7 +298,9 @@ export default class InfiniteScroll extends Component<Props, State> {
     // prevents multiple triggers.
     if (this.actionTriggered) return;
 
-    const atBottom = this.isElementAtBottom(target, this.props.scrollThreshold);
+    const atBottom = this.props.inverse
+      ? this.isElementAtTop(target, this.props.scrollThreshold)
+      : this.isElementAtBottom(target, this.props.scrollThreshold);
 
     // call the `next` function in the props to trigger the next data fetch
     if (atBottom && this.props.hasMore) {
