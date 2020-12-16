@@ -246,15 +246,13 @@ export default class InfiniteScroll extends Component<Props, State> {
     if (threshold.unit === ThresholdUnits.Pixel) {
       return (
         target.scrollTop <=
-          threshold.value + clientHeight - target.scrollHeight + 1 ||
-        target.scrollTop === 0
+        threshold.value + clientHeight - target.scrollHeight + 1
       );
     }
 
     return (
       target.scrollTop <=
-        threshold.value / 100 + clientHeight - target.scrollHeight + 1 ||
-      target.scrollTop === 0
+      threshold.value / 100 + clientHeight - target.scrollHeight + 1
     );
   }
 
