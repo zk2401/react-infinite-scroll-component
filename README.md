@@ -6,7 +6,7 @@
 A component to make all your infinite scrolling woes go away with just 4.15 kB! `Pull Down to Refresh` feature
 added. An infinite-scroll that actually works and super-simple to integrate!
 
-# install
+## Install
 
 ```bash
   npm install --save react-infinite-scroll-component
@@ -21,7 +21,7 @@ added. An infinite-scroll that actually works and super-simple to integrate!
   var InfiniteScroll = require('react-infinite-scroll-component');
 ```
 
-# using
+## Using
 
 ```jsx
 <InfiniteScroll
@@ -49,7 +49,7 @@ added. An infinite-scroll that actually works and super-simple to integrate!
 </InfiniteScroll>
 ```
 
-# using scroll on top
+## Using scroll on top
 
 ```jsx
 <div
@@ -86,11 +86,11 @@ The `InfiniteScroll` component can be used in three ways.
 - If your **scrollable** content is being rendered within a parent element that is already providing overflow scrollbars, you can set the `scrollableTarget` prop to reference the DOM element and use it's scrollbars for fetching more data.
 - Without setting either the `height` or `scrollableTarget` props, the scroll will happen at `document.body` like _Facebook's_ timeline scroll.
 
-# docs version wise
+## docs version wise
 
 [3.0.2](docs/README-3.0.2.md)
 
-# live examples
+## live examples
 
 - infinite scroll (never ending) example using react (body/window scroll)
   - [![Edit yk7637p62z](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/yk7637p62z)
@@ -101,7 +101,7 @@ The `InfiniteScroll` component can be used in three ways.
 - infinite scroll with `scrollableTarget` (a parent element which is scrollable)
   - [![Edit r7rp40n0zm](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/r7rp40n0zm)
 
-# props
+## props
 
 | name                           | type                 | description                                                                                                                                                                                                                                                                                                                                   |
 | ------------------------------ | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -135,6 +135,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
+    <td align="center"><a href="https://ankeetmaini.dev/"><img src="https://avatars.githubusercontent.com/u/6652823?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ankeet Maini</b></sub></a><br /><a href="#question-ankeetmaini" title="Answering Questions">💬</a> <a href="https://github.com/ankeetmaini/react-infinite-scroll-component/commits?author=ankeetmaini" title="Documentation">📖</a> <a href="https://github.com/ankeetmaini/react-infinite-scroll-component/commits?author=ankeetmaini" title="Code">💻</a> <a href="https://github.com/ankeetmaini/react-infinite-scroll-component/pulls?q=is%3Apr+reviewed-by%3Aankeetmaini" title="Reviewed Pull Requests">👀</a> <a href="#maintenance-ankeetmaini" title="Maintenance">🚧</a></td>
     <td align="center"><a href="https://github.com/iamdarshshah"><img src="https://avatars.githubusercontent.com/u/25670841?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Darsh Shah</b></sub></a><br /><a href="#infra-iamdarshshah" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
   </tr>
 </table>
@@ -144,4 +145,8 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+This project follows the [all-contributors](https://allcontributors.org) specification. Contributions of any kind are welcome!
+
+## LICENSE
+
+[MIT](LICENSE)
