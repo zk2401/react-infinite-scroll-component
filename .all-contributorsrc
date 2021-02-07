@@ -18,6 +18,15 @@
         "review",
         "maintenance"
       ]
+    },
+    {
+      "login": "iamdarshshah",
+      "name": "Darsh Shah",
+      "avatar_url": "https://avatars.githubusercontent.com/u/25670841?v=4",
+      "profile": "https://github.com/iamdarshshah",
+      "contributions": [
+        "infra"
+      ]
     }
   ],
   "projectName": "react-infinite-scroll-component",

@@ -1,4 +1,7 @@
 # react-infinite-scroll-component [![npm](https://img.shields.io/npm/dt/react-infinite-scroll-component.svg?style=flat-square)](https://www.npmjs.com/package/react-infinite-scroll-component) [![npm](https://img.shields.io/npm/v/react-infinite-scroll-component.svg?style=flat-square)](https://www.npmjs.com/package/react-infinite-scroll-component)
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 A component to make all your infinite scrolling woes go away with just 4.15 kB! `Pull Down to Refresh` feature
 added. An infinite-scroll that actually works and super-simple to integrate!
@@ -133,6 +136,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="https://ankeetmaini.dev/"><img src="https://avatars.githubusercontent.com/u/6652823?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ankeet Maini</b></sub></a><br /><a href="#question-ankeetmaini" title="Answering Questions">💬</a> <a href="https://github.com/ankeetmaini/react-infinite-scroll-component/commits?author=ankeetmaini" title="Documentation">📖</a> <a href="https://github.com/ankeetmaini/react-infinite-scroll-component/commits?author=ankeetmaini" title="Code">💻</a> <a href="https://github.com/ankeetmaini/react-infinite-scroll-component/pulls?q=is%3Apr+reviewed-by%3Aankeetmaini" title="Reviewed Pull Requests">👀</a> <a href="#maintenance-ankeetmaini" title="Maintenance">🚧</a></td>
+    <td align="center"><a href="https://github.com/iamdarshshah"><img src="https://avatars.githubusercontent.com/u/25670841?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Darsh Shah</b></sub></a><br /><a href="#infra-iamdarshshah" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
   </tr>
 </table>
 
