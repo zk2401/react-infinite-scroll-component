@@ -1,0 +1,27 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "contributorsPerLine": 5,
+  "skipCi": true,
+  "contributors": [
+    {
+      "login": "ankeetmaini",
+      "name": "Ankeet Maini",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6652823?v=4",
+      "profile": "https://ankeetmaini.dev/",
+      "contributions": [
+        "question",
+        "doc",
+        "code",
+        "review",
+        "maintenance"
+      ]
+    }
+  ],
+  "projectName": "react-infinite-scroll-component",
+  "projectOwner": "ankeetmaini",
+  "repoType": "github",
+  "repoHost": "https://github.com"
+}
