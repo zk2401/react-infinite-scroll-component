@@ -242,7 +242,7 @@ export default class InfiniteScroll extends Component<Props, State> {
       if (this._infScroll) {
         this._infScroll.style.overflow = 'auto';
         this._infScroll.style.transform = 'none';
-        this._infScroll.style.willChange = 'none';
+        this._infScroll.style.willChange = 'unset';
       }
     });
   };
@@ -258,15 +258,13 @@ export default class InfiniteScroll extends Component<Props, State> {
     if (threshold.unit === ThresholdUnits.Pixel) {
       return (
         target.scrollTop <=
-          threshold.value + clientHeight - target.scrollHeight + 1 ||
-        target.scrollTop === 0
+        threshold.value + clientHeight - target.scrollHeight + 1
       );
     }
 
     return (
       target.scrollTop <=
-        threshold.value / 100 + clientHeight - target.scrollHeight + 1 ||
-      target.scrollTop === 0
+      threshold.value / 100 + clientHeight - target.scrollHeight + 1
     );
   }
 
