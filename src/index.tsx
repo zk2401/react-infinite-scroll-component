@@ -152,8 +152,7 @@ export default class InfiniteScroll extends Component<Props, State> {
     // reset when data changes
     if (dataLengthChanged) {
       return {
-        showLoader: false,
-        pullToRefreshThresholdBreached: false,
+        ...prevState,
         prevDataLength: nextProps.dataLength,
       };
     }
