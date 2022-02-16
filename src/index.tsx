@@ -4,8 +4,10 @@ import { ThresholdUnits, parseThreshold } from './utils/threshold';
 
 type Fn = () => any;
 export interface Props {
+  pre?: Fn;
   next: Fn;
   hasMore: boolean;
+  hasBottomMore?: boolean;
   children: ReactNode;
   loader: ReactNode;
   scrollThreshold?: number | string;
@@ -27,6 +29,7 @@ export interface Props {
 }
 
 interface State {
+  showBottomLoader: boolean;
   showLoader: boolean;
   pullToRefreshThresholdBreached: boolean;
   prevDataLength: number | undefined;
@@ -37,6 +40,7 @@ export default class InfiniteScroll extends Component<Props, State> {
     super(props);
 
     this.state = {
+      showBottomLoader: false,
       showLoader: false,
       pullToRefreshThresholdBreached: false,
       prevDataLength: props.dataLength,
@@ -148,6 +152,7 @@ export default class InfiniteScroll extends Component<Props, State> {
     // update state when new data was sent in
     this.setState({
       showLoader: false,
+      showBottomLoader: false,
     });
   }
 
@@ -317,11 +322,21 @@ export default class InfiniteScroll extends Component<Props, State> {
       ? this.isElementAtTop(target, this.props.scrollThreshold)
       : this.isElementAtBottom(target, this.props.scrollThreshold);
 
+    const atTop = this.props.inverse
+      ? this.isElementAtBottom(target, this.props.scrollThreshold)
+      : this.isElementAtTop(target, this.props.scrollThreshold);
+
     // call the `next` function in the props to trigger the next data fetch
     if (atBottom && this.props.hasMore) {
       this.actionTriggered = true;
       this.setState({ showLoader: true });
       this.props.next && this.props.next();
+    }
+
+    if (atTop && this.props.hasBottomMore) {
+      this.actionTriggered = true;
+      this.setState({ showBottomLoader: true });
+      this.props.pre && this.props.pre();
     }
 
     this.lastScrollTop = target.scrollTop;
@@ -377,6 +392,9 @@ export default class InfiniteScroll extends Component<Props, State> {
               </div>
             </div>
           )}
+          {this.state.showBottomLoader &&
+            this.props.hasBottomMore &&
+            this.props.loader}
           {this.props.children}
           {!this.state.showLoader &&
             !hasChildren &&
